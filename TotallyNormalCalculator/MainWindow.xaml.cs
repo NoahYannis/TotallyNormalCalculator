@@ -13,10 +13,10 @@ namespace TotallyNormalCalculator
 
     public partial class MainWindow : Window
     {
-        public ObservableCollection<DiaryEntryModel> Entries { get; set; }
         public MainWindow()
         {
             InitializeComponent();
+            
         }
 
         long firstNumber = 0, secondNumber = 0, result = 0;

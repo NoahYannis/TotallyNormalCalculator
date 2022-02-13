@@ -4,6 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using TotallyNormalCalculator.MVVM.Model;
+using TotallyNormalCalculator.MVVM.ViewModel;
+
 
 namespace TotallyNormalCalculator.Core
 {

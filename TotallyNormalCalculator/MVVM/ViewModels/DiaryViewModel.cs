@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,11 +9,11 @@ using System.Windows;
 using TotallyNormalCalculator.Core;
 using TotallyNormalCalculator.MVVM.Model;
 
+
 namespace TotallyNormalCalculator.MVVM.ViewModels
 { 
     public class DiaryViewModel : ObservableClass
     {
-
         public ObservableCollection<DiaryEntryModel> Entries { get; set; }
         public RelayCommand SendCommand { get; set; }
 
@@ -25,20 +26,20 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
             set 
             {
                 _selectedEntry = value;
-                OnPropertyChanged();
+                OnPropertyChanged(nameof(SelectedEntry));
             }
         }
-
 
         private string _message;
 
         public string Message
         {
+            
             get { return _message; }
             set
             {
                 _message = value;
-                OnPropertyChanged();
+                OnPropertyChanged(nameof(Message));
             }
         }
 
@@ -47,16 +48,16 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
         public string Title
         {
             get { return _title; }
-            set 
+            set
             {
                 _title = value;
                 OnPropertyChanged();
             }
         }
 
-        private DateTime _date;
+        private string _date = DateTime.Today.ToShortDateString();
 
-        public DateTime Date
+        public string Date
         {
             get { return _date; }
             set 
@@ -68,28 +69,24 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
 
         public DiaryViewModel()
         {
-                
             Entries = new ObservableCollection<DiaryEntryModel>();
 
             SendCommand = new RelayCommand(o =>
             {
-                Entries.Add(new DiaryEntryModel
+                Entries.Add(new DiaryEntryModel 
                 {
                     Title = Title,
                     Message = Message,
                     Date = Date
-
                 });
 
-          
+                Title = "";
+                Message = "";
+                Date = "";
+
 
             });
             
-
-            
-
-
         }
-
     }
 }

@@ -1,5 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:viewmodels="clr-namespace:TotallyNormalCalculator.MVVM.ViewModels"
+                    xmlns:local="clr-namespace:TotallyNormalCalculator.MVVM.Views">
 
     <Style TargetType="ListViewItem" x:Key="DiaryEntries">
         <Style.Triggers>
@@ -10,7 +12,7 @@
 
         <Setter Property="Background" Value="LightGreen"/>
 
-        <Setter Property="Template">
+        <Setter Property="Template" >
             <Setter.Value>
                 <ControlTemplate TargetType="ListViewItem">
                     <Border Background="{TemplateBinding Background}"
@@ -20,10 +22,10 @@
                         <StackPanel Orientation="Horizontal"
                                     Margin="10,0,0,0">
                             <StackPanel>
-                                <TextBlock Name="EntryTitle" Text="{Binding Title}"
+                                <Label Name="EntryTitle" Content="{Binding Title}"
                                        Foreground="Black"
                                        FontWeight="DemiBold"/>
-                                <TextBlock Name="EntryMessage" Text="{Binding Message}"
+                                <Label Name="EntryMessage" Content="{Binding Message}"
                                        Foreground="Black"
                                        FontSize="10"/>
                             </StackPanel>

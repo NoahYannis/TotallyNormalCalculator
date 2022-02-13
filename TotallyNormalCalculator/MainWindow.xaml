@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TotallyNormalCalculator"
         xmlns:viewmodels="clr-namespace:TotallyNormalCalculator.MVVM.ViewModels"
-        xmlns:views="clr-namespace:TotallyNormalCalculator.MVVM.Views"
+        xmlns:views="clr-namespace:TotallyNormalCalculator.MVVM.Views" 
+        xmlns:model="clr-namespace:TotallyNormalCalculator.MVVM.Model"
         mc:Ignorable="d"
         Height="600" Width="600"
         Background="#36393F"
@@ -20,9 +21,10 @@
 
     <Window.Resources>
         <DataTemplate x:Name="DiaryView" DataType="{x:Type viewmodels:DiaryViewModel}">
-            <views:DiaryView DataContext="{Binding}"/>
+            <views:DiaryView/>
         </DataTemplate>
     </Window.Resources>
+
 
 
 

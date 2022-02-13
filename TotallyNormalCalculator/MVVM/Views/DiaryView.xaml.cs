@@ -26,6 +26,7 @@ namespace TotallyNormalCalculator.MVVM.Views
         public DiaryView()
         {
             InitializeComponent();
+            this.DataContext = new DiaryViewModel();
         }
 
         private void btnMinimize_Click(object sender, RoutedEventArgs e)
