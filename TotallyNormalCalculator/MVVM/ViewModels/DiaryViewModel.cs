@@ -15,7 +15,9 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
     public class DiaryViewModel : ObservableClass
     {
         public ObservableCollection<DiaryEntryModel> Entries { get; set; }
-        public RelayCommand SendCommand { get; set; }
+        public RelayCommand AddEntryCommand { get; set; }
+        public RelayCommand ReadEntryCommand { get; set; }
+        public RelayCommand DeleteEntryCommand { get; set; }
 
         private DiaryEntryModel _selectedEntry;
 
@@ -26,7 +28,7 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
             set 
             {
                 _selectedEntry = value;
-                OnPropertyChanged(nameof(SelectedEntry));
+                OnPropertyChanged();
             }
         }
 
@@ -39,7 +41,7 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
             set
             {
                 _message = value;
-                OnPropertyChanged(nameof(Message));
+                OnPropertyChanged();
             }
         }
 
@@ -71,8 +73,8 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
         {
             Entries = new ObservableCollection<DiaryEntryModel>();
 
-            SendCommand = new RelayCommand(o =>
-            {
+           AddEntryCommand = new RelayCommand(o =>
+           {
                 Entries.Add(new DiaryEntryModel 
                 {
                     Title = Title,
@@ -84,6 +86,64 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
                 Message = "";
                 Date = "";
 
+
+           });
+
+            ReadEntryCommand = new RelayCommand(o =>
+            {
+                if (Entries.Count > 0)
+                {
+
+                    if (SelectedEntry != null)
+                    {
+                        Title = SelectedEntry.Title;
+                        Message = SelectedEntry.Message;
+                        Date = SelectedEntry.Date; 
+                    }
+                    else
+                    {
+                        MessageBox.Show("Please select an entry to read.", "TotallyNormalCalculator", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+                }
+                else
+                {
+                    var result = MessageBox.Show("There is no entry to read. You should create one!", "TotallyNormalCalculator", MessageBoxButton.YesNo, MessageBoxImage.Information);
+
+                    if (result == MessageBoxResult.No)
+                    {
+                        MessageBox.Show(":(");
+                    }
+                }
+
+            });
+
+            DeleteEntryCommand = new RelayCommand(o =>
+            {
+
+                if (Entries.Count > 0)
+                {
+                    var wantsToDeleteEntry = MessageBox.Show("Do you want to permanently delete this entry?", "TotallyNormalCalculator", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                    if (wantsToDeleteEntry == MessageBoxResult.Yes)
+                    {
+                        if (SelectedEntry != null)
+                        {
+                            Entries.Remove(SelectedEntry);
+
+                            Title = "";
+                            Message = "";
+                            Date = "";
+                        }
+                        else
+                        {
+                            MessageBox.Show("Please select an entry to delete.", "TotallyNormalCalculator", MessageBoxButton.OK, MessageBoxImage.Information);
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("There is no entry to delete.", "TotallyNormalCalculator", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    }
+                }
 
             });
             

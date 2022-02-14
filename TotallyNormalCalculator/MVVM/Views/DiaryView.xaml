@@ -60,6 +60,7 @@
 
         <ListView x:Name="ListViewEntries" Grid.Column="0" BorderThickness="0" 
                   DataContext="{Binding}"
+                  SelectedItem="{Binding SelectedEntry}"
                   ItemsSource="{Binding Entries}"
                   ItemContainerStyle="{StaticResource DiaryEntries}" Margin="0,25,0,0">
         </ListView>
@@ -95,9 +96,9 @@
             </Grid.RowDefinitions>
 
             <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Horizontal" Margin="20">
-                <Button x:Name="btnDelete" Style="{StaticResource DiaryButtons}" Content="Delete" Margin="50,0,0,0"/>
-                <Button x:Name="btnRead" Style="{StaticResource DiaryButtons}" Content="Read" Margin="50,0,0,0"/>
-                <Button x:Name="btnAdd"  Command="{Binding SendCommand}" Style="{StaticResource DiaryButtons}" Content="Add" Margin="50,0,0,0"/>
+                <Button x:Name="btnDelete" Command ="{Binding DeleteEntryCommand}" Style="{StaticResource DiaryButtons}" Content="Delete" Margin="50,0,0,0"/>
+                <Button x:Name="btnRead" Command="{Binding ReadEntryCommand}" Style="{StaticResource DiaryButtons}" Content="Read" Margin="50,0,0,0"/>
+                <Button x:Name="btnAdd"  Command="{Binding AddEntryCommand}" Style="{StaticResource DiaryButtons}" Content="Add" Margin="50,0,0,0"/>
             </StackPanel>
 
         </Grid>

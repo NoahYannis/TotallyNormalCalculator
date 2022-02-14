@@ -16,7 +16,6 @@ namespace TotallyNormalCalculator
         public MainWindow()
         {
             InitializeComponent();
-            
         }
 
         long firstNumber = 0, secondNumber = 0, result = 0;
