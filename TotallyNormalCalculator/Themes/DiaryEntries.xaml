@@ -6,7 +6,7 @@
     <Style TargetType="ListViewItem" x:Key="DiaryEntries">
         <Style.Triggers>
             <Trigger Property="IsSelected" Value="True">
-                <Setter Property="Background" Value="DarkGreen"/>
+                <Setter Property="Background" Value="ForestGreen"/>
             </Trigger>
         </Style.Triggers>
 
@@ -20,7 +20,7 @@
                             CornerRadius="4"
                             Margin="2,10,2,2">
                         <StackPanel Orientation="Horizontal"
-                                    Margin="10,0,0,0">
+                                    Margin="0,0,5,5">
                             <StackPanel>
                                 <Label Name="EntryTitle" Content="{Binding Title}"
                                        Foreground="Black"

@@ -9,8 +9,8 @@
              xmlns:model="clr-namespace:TotallyNormalCalculator.MVVM.Model"
              xmlns:core="clr-namespace:TotallyNormalCalculator.Core"
              mc:Ignorable="d"
-             d:DesignHeight="600" d:DesignWidth="600">
-             
+             d:DesignHeight="600" d:DesignWidth="600"> 
+
 
     <UserControl.DataContext>
         <viewmodels:DiaryViewModel/>
@@ -29,33 +29,37 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
+        <Grid Grid.ColumnSpan="2"  Background="SkyBlue" Height="25" VerticalAlignment="Top">
 
+            <Grid HorizontalAlignment="Right" Margin="0,0,20,0" MinHeight="25">
 
-        <Grid Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Background="LightGreen">
-
-            <StackPanel Margin="0,0,0,575" Orientation="Horizontal" Background="SkyBlue">
-                <Button x:Name="btnMinimize" Click="btnMinimize_Click"
-                    Height="18" Width="18" Background="LightGreen" Margin="530,0,0,0"
+                <Button x:Name="btnMinimize" Click="btnMinimize_Click" 
+                    Height="18" Width="18" Background="LightGreen" Margin="470,0,0,0"
                     Content="🗕" FontWeight="Bold"
                     BorderThickness="0"
                     VerticalContentAlignment="Top">
                 </Button>
 
-                <Button x:Name="btnMaximize" Click="btnMaximize_Click"
+                <Button x:Name="btnMaximize" Click="btnMaximize_Click" Margin="500,0,0,0"
                     Height="18" Width="18" Background="LightGreen"
-                    Content="□" FontWeight="ExtraBold"
+                    Content="□" FontWeight="ExtraBold" 
                     BorderThickness="0">
                 </Button>
 
-                <Button x:Name="btnClose" Click="btnClose_Click"
+                <Button x:Name="btnClose" Click="btnClose_Click" Margin="530,0,0,0"
                     Height="18" Width="18" Background="LightGreen"
                     Content="X" FontWeight="Bold"
-                    BorderThickness="0"
-                    Margin="0,0,5,0">
+                    BorderThickness="0">
                 </Button>
+            </Grid>
+
+        </Grid>
 
 
-            </StackPanel>
+
+        <Grid Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Background="LightGreen" VerticalAlignment="Top">
+
+            
         </Grid>
 
         <ListView x:Name="ListViewEntries" Grid.Column="0" BorderThickness="0" 
@@ -68,38 +72,35 @@
 
 
 
-        <Grid Grid.Column="1">
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition Height="420"/>
-            </Grid.RowDefinitions>
+        <Grid Grid.Column="1" >
 
 
-                <TextBox x:Name="txtTitle"                
-                     Text="{Binding Path=Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="15"  Height="25" Margin="10,50,170,90"/>
+            <TextBox x:Name="txtTitle" Height="30" 
+                     MinHeight="30" MinWidth="300" 
+                     HorizontalAlignment="Stretch" VerticalAlignment="Top"
+                     VerticalContentAlignment="Center"
+                     Text="{Binding Path=Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="15" Margin="10,50,175,510"/>
 
-                <TextBox x:Name="txtDate"
-                     Text="{Binding Date, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="15" Height="25" Margin="325,50,10,90"/>
+            <TextBox x:Name="txtDate" Height="30" 
+                     MinHeight="30" MinWidth="140" 
+                     VerticalContentAlignment="Center"
+                     HorizontalAlignment="Right" VerticalAlignment="Top"
+                     Text="{Binding Date, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="15" Margin="25,50,10,510"/>
 
-                <TextBox x:Name="txtMessage" 
-                     Text="{Binding Message, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="15" Margin="20,105,20,119" Grid.RowSpan="2"/>
+            
+            <TextBox x:Name="txtMessage" 
+                     MinHeight="400" MinWidth="440"
+                     AcceptsReturn="True" AcceptsTab="True"
+                     HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                     Text="{Binding Message, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="15" Margin="20,100,20,100"/>
 
 
+            <Grid Grid.Column="1" VerticalAlignment="Bottom" Height="100">
+                <Button x:Name="btnDelete" Command="{Binding DeleteEntryCommand}" Style="{StaticResource DiaryButtons}" Content="Delete"  Margin="-250,0,0,0"  Height="30" MinHeight="30" Width="80" MinWidth="80"/>
+                <Button x:Name="btnRead" Command="{Binding ReadEntryCommand}" Style="{StaticResource DiaryButtons}" Content="Read" Margin="0,0,0,0" Height="30" MinHeight="30" Width="80" MinWidth="80"/>
+                <Button x:Name="btnAdd"  Command="{Binding AddEntryCommand}" Style="{StaticResource DiaryButtons}" Content="Add" Margin="250,0,0,0" Height="30" MinHeight="30" Width="80" MinWidth="80"/>
+            </Grid>
 
-
-        </Grid>
-
-        <Grid Grid.Column="1" Grid.Row="2">
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition Height="120"/>
-            </Grid.RowDefinitions>
-
-            <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Horizontal" Margin="20">
-                <Button x:Name="btnDelete" Command ="{Binding DeleteEntryCommand}" Style="{StaticResource DiaryButtons}" Content="Delete" Margin="50,0,0,0"/>
-                <Button x:Name="btnRead" Command="{Binding ReadEntryCommand}" Style="{StaticResource DiaryButtons}" Content="Read" Margin="50,0,0,0"/>
-                <Button x:Name="btnAdd"  Command="{Binding AddEntryCommand}" Style="{StaticResource DiaryButtons}" Content="Add" Margin="50,0,0,0"/>
-            </StackPanel>
 
         </Grid>
     </Grid>

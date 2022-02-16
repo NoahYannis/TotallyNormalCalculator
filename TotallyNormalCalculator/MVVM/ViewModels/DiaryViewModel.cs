@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using TotallyNormalCalculator.Core;
@@ -71,6 +72,7 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
 
         public DiaryViewModel()
         {
+
             Entries = new ObservableCollection<DiaryEntryModel>();
 
            AddEntryCommand = new RelayCommand(o =>
@@ -121,7 +123,7 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
             {
 
                 if (Entries.Count > 0)
-                {
+                {   
                     var wantsToDeleteEntry = MessageBox.Show("Do you want to permanently delete this entry?", "TotallyNormalCalculator", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
                     if (wantsToDeleteEntry == MessageBoxResult.Yes)
