@@ -4,7 +4,12 @@
                     xmlns:local="clr-namespace:TotallyNormalCalculator.MVVM.Views">
 
     <Style TargetType="ListViewItem" x:Key="DiaryEntries">
+        
         <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="LawnGreen"/>
+            </Trigger>
+            
             <Trigger Property="IsSelected" Value="True">
                 <Setter Property="Background" Value="ForestGreen"/>
             </Trigger>

@@ -59,5 +59,11 @@ namespace TotallyNormalCalculator.MVVM.Views
         {
 
         }
+
+        private void txtDate_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
     }
 }

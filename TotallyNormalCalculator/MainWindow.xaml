@@ -9,7 +9,7 @@
         xmlns:model="clr-namespace:TotallyNormalCalculator.MVVM.Model"
         mc:Ignorable="d"
         Height="600" Width="600" MinHeight="600" MinWidth="600"
-        Background="#36393F"
+        Background="#36393F" AllowsTransparency ="False"
         ResizeMode="CanResizeWithGrip"
         WindowStyle="None">
 

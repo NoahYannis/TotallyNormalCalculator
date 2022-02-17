@@ -58,7 +58,7 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
             }
         }
 
-        private string _date = DateTime.Today.ToShortDateString();
+        private string _date;
 
         public string Date
         {
@@ -73,7 +73,7 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
         public DiaryViewModel()
         {
 
-            Entries = new ObservableCollection<DiaryEntryModel>();
+           Entries = new ObservableCollection<DiaryEntryModel>();
 
            AddEntryCommand = new RelayCommand(o =>
            {
@@ -95,7 +95,6 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
             {
                 if (Entries.Count > 0)
                 {
-
                     if (SelectedEntry != null)
                     {
                         Title = SelectedEntry.Title;
@@ -140,15 +139,24 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
                         {
                             MessageBox.Show("Please select an entry to delete.", "TotallyNormalCalculator", MessageBoxButton.OK, MessageBoxImage.Information);
                         }
-                    }
-                    else
-                    {
-                        MessageBox.Show("There is no entry to delete.", "TotallyNormalCalculator", MessageBoxButton.OK, MessageBoxImage.Warning);
-                    }
+                    }        
+                }
+                else
+                {
+                    MessageBox.Show("There is no entry to delete.", "TotallyNormalCalculator", MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
 
             });
-            
+
+            for (int i = 0; i < 10 ; i++)
+            {
+                Entries.Add(new DiaryEntryModel
+                {
+                    Title = "Test",
+                    Message = "Test",
+                    Date = "Test"
+                });
+            }
         }
     }
 }
