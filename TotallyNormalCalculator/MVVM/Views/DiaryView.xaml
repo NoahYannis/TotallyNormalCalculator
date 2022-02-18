@@ -8,7 +8,7 @@
              xmlns:views="clr-namespace:TotallyNormalCalculator.MVVM.Views"
              xmlns:model="clr-namespace:TotallyNormalCalculator.MVVM.Model"
              xmlns:core="clr-namespace:TotallyNormalCalculator.Core"
-             mc:Ignorable="d" 
+             mc:Ignorable="d"
              d:DesignHeight="600" d:DesignWidth="650">
 
 
@@ -23,14 +23,14 @@
 
 
 
-    <Grid Background="LightGreen" Margin="0,-1,0,1">
+    <Grid Background="LightGreen">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="150"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
         <Border x:Name="BlueBar" AllowDrop="True" Grid.ColumnSpan="2"  
-                Background="SkyBlue" Height="25" VerticalAlignment="Top">
+                Background="SkyBlue" Height="25" VerticalAlignment="Top" core:EnableDragHelper.EnableDrag="True">
 
             <Grid HorizontalAlignment="Right" Margin="0,0,20,0" MinHeight="25">
 
@@ -61,7 +61,7 @@
         <Grid Grid.Column="0" Grid.ColumnSpan="2" Background="LightGreen" VerticalAlignment="Center" Height="0"/>
 
         <ListView x:Name="ListViewEntries" Grid.Column="0" BorderThickness="0" 
-                  DataContext="{Binding}"
+                  DataContext="{Binding}" core:ListBoxBehavior.ScrollOnNewItem="True"
                   SelectedItem="{Binding SelectedEntry}"
                   ItemsSource="{Binding Entries}"
                   ItemContainerStyle="{StaticResource DiaryEntries}" Margin="0,25,0,0"/>
@@ -71,12 +71,12 @@
 
         <Grid Grid.Column="1" >
 
-
             <TextBox x:Name="txtTitle" Height="30" 
                      MinHeight="30" MinWidth="300" 
                      HorizontalAlignment="Stretch" VerticalAlignment="Top"
                      VerticalContentAlignment="Center"
-                     Text="{Binding Path=Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="15" Margin="10,50,175,510"/>
+                     core:CornerRadiusSetter.CornerRadius="5"
+                     Text="{Binding Path=Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="15" Margin="10,50,170,500"/>
 
             <TextBlock IsHitTestVisible="False"
                        Text="Title"
@@ -102,7 +102,8 @@
                      MinHeight="30" MinWidth="140" 
                      VerticalContentAlignment="Center"
                      HorizontalAlignment="Right" VerticalAlignment="Top"
-                     Text="{Binding Date, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="15" Margin="25,50,10,510" TextChanged="txtDate_TextChanged"/>
+                     core:CornerRadiusSetter.CornerRadius="5"
+                     Text="{Binding Date, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="15" Margin="25,50,10,500" TextChanged="txtDate_TextChanged"/>
 
             <TextBlock IsHitTestVisible="False"
                        Text="Date"
@@ -125,7 +126,7 @@
             </TextBlock>
 
 
-            <TextBox x:Name="txtMessage" 
+            <TextBox x:Name="txtMessage" core:CornerRadiusSetter.CornerRadius="5"
                      MinHeight="400" MinWidth="440"
                      AcceptsReturn="True" AcceptsTab="True"
                      HorizontalAlignment="Stretch" VerticalAlignment="Stretch"

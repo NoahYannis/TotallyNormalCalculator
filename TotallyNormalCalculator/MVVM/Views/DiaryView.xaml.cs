@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,6 +28,8 @@ namespace TotallyNormalCalculator.MVVM.Views
         {
             InitializeComponent();
             this.DataContext = new DiaryViewModel();
+
+            
         }
 
         private void btnMinimize_Click(object sender, RoutedEventArgs e)
@@ -57,6 +60,7 @@ namespace TotallyNormalCalculator.MVVM.Views
 
         private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+
 
         }
 
