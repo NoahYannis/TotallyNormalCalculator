@@ -69,68 +69,79 @@
 
 
 
-        <Grid Grid.Column="1" >
+        <Grid Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="97*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20*"/>
+                <RowDefinition Height="79*"/>
+                <RowDefinition Height="21*"/>
+            </Grid.RowDefinitions>
 
-            <TextBox x:Name="txtTitle" Height="30" 
-                     MinHeight="30" MinWidth="300" 
-                     HorizontalAlignment="Stretch" VerticalAlignment="Top"
-                     VerticalContentAlignment="Center"
+            <Grid Grid.Row="0" Grid.ColumnSpan="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="7*"/>
+                    <ColumnDefinition Width="43*"/>
+                </Grid.ColumnDefinitions>
+                <TextBox x:Name="txtTitle" Height="30" 
+                     MinHeight="30" VerticalAlignment="Bottom"
                      core:CornerRadiusSetter.CornerRadius="5"
-                     Text="{Binding Path=Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="15" Margin="10,50,170,500"/>
+                     Text="{Binding Path=Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="15" Margin="10,0,170,10" Grid.ColumnSpan="2"/>
 
-            <TextBlock IsHitTestVisible="False"
+                <TextBlock IsHitTestVisible="False"
                        Text="Title"
-                       VerticalAlignment="Top"
+                       VerticalAlignment="Bottom"
                        HorizontalAlignment="Left"
                        FontSize="15"
                        Foreground="DarkGray"
-                       Margin="15,54,0,0">
+                       Margin="15,0,0,16">
 
-                <TextBlock.Style>
-                    <Style TargetType="TextBlock">
-                        <Setter Property="Visibility" Value="Collapsed"/>
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding Text, ElementName=txtTitle}" Value="">
-                                <Setter Property="Visibility" Value="Visible"/>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </TextBlock.Style>
-            </TextBlock>
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Text, ElementName=txtTitle}" Value="">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
 
-            <TextBox x:Name="txtDate" Height="30" 
+                <TextBox x:Name="txtDate" 
                      MinHeight="30" MinWidth="140" 
                      VerticalContentAlignment="Center"
-                     HorizontalAlignment="Right" VerticalAlignment="Top"
+                     HorizontalAlignment="Right" VerticalAlignment="Bottom"
                      core:CornerRadiusSetter.CornerRadius="5"
-                     Text="{Binding Date, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="15" Margin="25,50,10,500" TextChanged="txtDate_TextChanged"/>
+                     Text="{Binding Date, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="15" Margin="0,0,10,10" Grid.Column="1"/>
 
-            <TextBlock IsHitTestVisible="False"
+                <TextBlock IsHitTestVisible="False"
                        Text="Date"
-                       VerticalAlignment="Top"
+                       VerticalAlignment="Bottom"
                        HorizontalAlignment="Right"
                        FontSize="15"
                        Foreground="DarkGray"
-                       Margin="0,54,112,0">
+                       Margin="0,0,113,16" Grid.Column="1">
 
-                <TextBlock.Style>
-                    <Style TargetType="TextBlock">
-                        <Setter Property="Visibility" Value="Collapsed"/>
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding Text, ElementName=txtDate}" Value="">
-                                <Setter Property="Visibility" Value="Visible"/>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </TextBlock.Style>
-            </TextBlock>
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Text, ElementName=txtDate}" Value="">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+            </Grid>
 
-
-            <TextBox x:Name="txtMessage" core:CornerRadiusSetter.CornerRadius="5"
-                     MinHeight="400" MinWidth="440"
+            <TextBox x:Name="txtMessage" 
+                     core:CornerRadiusSetter.CornerRadius="5" 
                      AcceptsReturn="True" AcceptsTab="True"
-                     HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                     Text="{Binding Message, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="15" Margin="20,100,20,100"/>
+                     Text="{Binding Message, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="15" Margin="5,0,20,0" Grid.Row="1" Grid.Column="1"/>
 
             <TextBlock IsHitTestVisible="False"
                        Text="Message"
@@ -138,7 +149,7 @@
                        HorizontalAlignment="Left"
                        FontSize="15"
                        Foreground="DarkGray"
-                       Margin="27,103,0,0">
+                       Margin="10,5,0,0" Height="20" Grid.Row="1" Width="58" Grid.Column="1">
 
                 <TextBlock.Style>
                     <Style TargetType="TextBlock">
@@ -153,10 +164,11 @@
             </TextBlock>
 
 
-            <Grid Grid.Column="1" VerticalAlignment="Bottom" Height="100">
-                <Button x:Name="btnDelete" Command="{Binding DeleteEntryCommand}" Style="{StaticResource DiaryButtons}" Content="Delete"  Margin="-250,0,0,0"  Height="30" MinHeight="30" Width="80" MinWidth="80"/>
-                <Button x:Name="btnRead" Command="{Binding ReadEntryCommand}" Style="{StaticResource DiaryButtons}" Content="Read" Margin="0,0,0,0" Height="30" MinHeight="30" Width="80" MinWidth="80"/>
-                <Button x:Name="btnAdd"  Command="{Binding AddEntryCommand}" Style="{StaticResource DiaryButtons}" Content="Add" Margin="250,0,0,0" Height="30" MinHeight="30" Width="80" MinWidth="80"/>
+            <Grid Grid.Row="2" VerticalAlignment="Center" Height="100" Grid.ColumnSpan="2">
+                <Button x:Name="btnDelete" Command="{Binding DeleteEntryCommand}" Style="{StaticResource DiaryButtons}" Content="Delete"  Margin="-350,0,0,0"  Height="30" MinHeight="30" Width="80" MinWidth="80"/>
+                <Button x:Name="btnRead" Command="{Binding ReadEntryCommand}" Style="{StaticResource DiaryButtons}" Content="Read" Margin="-125,0,0,0" Height="30" MinHeight="30" Width="80" MinWidth="80"/>
+                <Button x:Name="btnAdd"  Command="{Binding AddEntryCommand}" Style="{StaticResource DiaryButtons}" Content="Add" Margin="100,0,0,0" Height="30" MinHeight="30" Width="80" MinWidth="80"/>
+                <Button x:Name="btnCalculator" Style="{StaticResource DiaryButtons}" Content="Calculator" Margin="325,0,0,0" Width="100" />
             </Grid>
 
 

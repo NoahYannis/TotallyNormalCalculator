@@ -8,7 +8,7 @@
         xmlns:views="clr-namespace:TotallyNormalCalculator.MVVM.Views" 
         xmlns:model="clr-namespace:TotallyNormalCalculator.MVVM.Model"
         mc:Ignorable="d"
-        Height="600" Width="600" MinHeight="600" MinWidth="600"
+        Height="600" Width="600" MinHeight="600" MinWidth="650"
         Background="#36393F" AllowsTransparency ="False"
         ResizeMode="CanResizeWithGrip"
         WindowStyle="None">
