@@ -8,8 +8,9 @@ To be added soon:
 
 - light/dark mode
 - application logo  
-- making the diary draggable
-- styling text boxes & scrollbars
+- making the diary draggable ✓
+- styling text boxes ✓
 - diary entries get saved
-- bugfixes & layout improvements
+- layout improvements ✓
+- bugfixes
 - unit tests
