@@ -19,6 +19,17 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
         public RelayCommand AddEntryCommand { get; set; }
         public RelayCommand ReadEntryCommand { get; set; }
         public RelayCommand DeleteEntryCommand { get; set; }
+        public RelayCommand SwitchViewCommand { get; set; }
+
+
+        private object _selectedViewModel;
+
+        public object SelectedViewModel
+        {
+            get { return _selectedViewModel; }
+            set { _selectedViewModel = value; }
+        }
+
 
         private DiaryEntryModel _selectedEntry;
 
@@ -146,6 +157,11 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
                     MessageBox.Show("There is no entry to delete.", "TotallyNormalCalculator", MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
 
+            });
+
+            SwitchViewCommand = new RelayCommand(o =>
+            {
+                
             });
 
             for (int i = 0; i < 10 ; i++)

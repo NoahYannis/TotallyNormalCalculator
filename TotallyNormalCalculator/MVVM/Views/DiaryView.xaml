@@ -168,7 +168,7 @@
                 <Button x:Name="btnDelete" Command="{Binding DeleteEntryCommand}" Style="{StaticResource DiaryButtons}" Content="Delete"  Margin="-350,0,0,0"  Height="30" MinHeight="30" Width="80" MinWidth="80"/>
                 <Button x:Name="btnRead" Command="{Binding ReadEntryCommand}" Style="{StaticResource DiaryButtons}" Content="Read" Margin="-125,0,0,0" Height="30" MinHeight="30" Width="80" MinWidth="80"/>
                 <Button x:Name="btnAdd"  Command="{Binding AddEntryCommand}" Style="{StaticResource DiaryButtons}" Content="Add" Margin="100,0,0,0" Height="30" MinHeight="30" Width="80" MinWidth="80"/>
-                <Button x:Name="btnCalculator" Style="{StaticResource DiaryButtons}" Content="Calculator" Margin="325,0,0,0" Width="100" />
+                <Button x:Name="btnCalculator" CommandParameter="SwitchToCalculator" Command="{Binding SwitchViewCommand}" Style="{StaticResource DiaryButtons}" Content="Calculator ⭯" Background="BurlyWood" Margin="325,0,0,0" Width="100" />
             </Grid>
 
 
