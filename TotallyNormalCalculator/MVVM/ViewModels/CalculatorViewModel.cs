@@ -3,11 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TotallyNormalCalculator.Core;
+using TotallyNormalCalculator.MVVM.ViewModels;
 
-namespace TotallyNormalCalculator.MVVM.ViewModel
+namespace TotallyNormalCalculator.MVVM.ViewModels
 {
-    class CalculatorViewModel
+    public class CalculatorViewModel : BaseViewModel
     {
-
+        
+        public CalculatorViewModel()
+        {
+          
+        }
     }
 }

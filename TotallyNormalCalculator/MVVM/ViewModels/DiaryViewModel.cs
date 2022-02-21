@@ -7,29 +7,20 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 using TotallyNormalCalculator.Core;
 using TotallyNormalCalculator.MVVM.Model;
 
 
 namespace TotallyNormalCalculator.MVVM.ViewModels
 { 
-    public class DiaryViewModel : ObservableClass
+    public class DiaryViewModel : BaseViewModel
     {
         public ObservableCollection<DiaryEntryModel> Entries { get; set; }
         public RelayCommand AddEntryCommand { get; set; }
         public RelayCommand ReadEntryCommand { get; set; }
         public RelayCommand DeleteEntryCommand { get; set; }
-        public RelayCommand SwitchViewCommand { get; set; }
-
-
-        private object _selectedViewModel;
-
-        public object SelectedViewModel
-        {
-            get { return _selectedViewModel; }
-            set { _selectedViewModel = value; }
-        }
-
+ 
 
         private DiaryEntryModel _selectedEntry;
 
@@ -40,7 +31,7 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
             set 
             {
                 _selectedEntry = value;
-                OnPropertyChanged();
+                OnPropertyChanged(nameof(SelectedEntry));
             }
         }
 
@@ -53,7 +44,7 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
             set
             {
                 _message = value;
-                OnPropertyChanged();
+                OnPropertyChanged(_message);
             }
         }
 
@@ -65,7 +56,7 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
             set
             {
                 _title = value;
-                OnPropertyChanged();
+                OnPropertyChanged(_title);
             }
         }
 
@@ -77,7 +68,7 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
             set 
             {
                 _date = value;
-                OnPropertyChanged();
+                OnPropertyChanged(_date);
             }
         }
 
@@ -159,10 +150,7 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
 
             });
 
-            SwitchViewCommand = new RelayCommand(o =>
-            {
-                
-            });
+           
 
             for (int i = 0; i < 10 ; i++)
             {

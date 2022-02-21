@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using TotallyNormalCalculator.MVVM.Model;
-using TotallyNormalCalculator.MVVM.ViewModel;
+using TotallyNormalCalculator.MVVM.ViewModels;
 
 
 namespace TotallyNormalCalculator.Core

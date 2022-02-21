@@ -4,7 +4,6 @@ using System.Windows;
 using System.Windows.Input;
 using TotallyNormalCalculator.MVVM;
 using TotallyNormalCalculator.MVVM.Model;
-using TotallyNormalCalculator.MVVM.ViewModel;
 using TotallyNormalCalculator.MVVM.ViewModels;
 
 namespace TotallyNormalCalculator
@@ -16,6 +15,7 @@ namespace TotallyNormalCalculator
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = new MainViewModel();
         }
 
         long firstNumber = 0, secondNumber = 0, result = 0;

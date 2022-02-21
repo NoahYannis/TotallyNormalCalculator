@@ -2,16 +2,23 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:TotallyNormalCalculator"
+             xmlns:viewmodels="clr-namespace:TotallyNormalCalculator.MVVM.ViewModels"
+             xmlns:views="clr-namespace:TotallyNormalCalculator.MVVM.Views"
              StartupUri="MainWindow.xaml">
-    
-    <Application.Resources>
-        <ResourceDictionary>
+
+    <Application.Resources> 
+        <ResourceDictionary >
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary x:Name="CalculatorButton" Source="./Themes/CalculatorButtons.xaml"/>
                 <ResourceDictionary x:Name="DiaryEntry" Source="./Themes/DiaryEntries.xaml"/>
                 <ResourceDictionary x:Name="DiaryButtons" Source="./Themes/DiaryButtons.xaml"/>
-                <ResourceDictionary x:Name="DiaryTextBoxes" Source="./Themes/DiaryTextBoxes.xaml"/>
             </ResourceDictionary.MergedDictionaries>
+            <DataTemplate DataType="{x:Type viewmodels:DiaryViewModel}">
+                <views:DiaryView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:CalculatorViewModel}">
+                <views:DiaryView/>
+            </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
