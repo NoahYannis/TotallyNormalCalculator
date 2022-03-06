@@ -4,7 +4,7 @@
              xmlns:local="clr-namespace:TotallyNormalCalculator"
              xmlns:viewmodels="clr-namespace:TotallyNormalCalculator.MVVM.ViewModels"
              xmlns:views="clr-namespace:TotallyNormalCalculator.MVVM.Views"
-             StartupUri="MainWindow.xaml">
+             StartupUri="\MVVM\Views\MainWindow.xaml">
 
     <Application.Resources> 
         <ResourceDictionary >
@@ -14,10 +14,10 @@
                 <ResourceDictionary x:Name="DiaryButtons" Source="./Themes/DiaryButtons.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <DataTemplate DataType="{x:Type viewmodels:DiaryViewModel}">
-                <views:DiaryView/>
+                <views:DiaryView />
             </DataTemplate>
             <DataTemplate DataType="{x:Type viewmodels:CalculatorViewModel}">
-                <views:DiaryView/>
+                <views:CalculatorView />
             </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>

@@ -23,6 +23,7 @@ namespace TotallyNormalCalculator.MVVM.Views
         public CalculatorView()
         {
             InitializeComponent();
+            
         }
     }
 }

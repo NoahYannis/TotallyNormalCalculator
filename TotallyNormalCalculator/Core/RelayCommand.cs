@@ -10,10 +10,22 @@ using TotallyNormalCalculator.MVVM.ViewModels;
 
 namespace TotallyNormalCalculator.Core
 {
-    public class RelayCommand : ICommand
+    public class RelayCommand : BaseViewModel, ICommand
     {
         private Action<object> execute;
         private Func<object, bool> canExecute;
+
+        private object _parameterValue;
+        public object ParameterValue
+        {
+            get { return _parameterValue; }
+            set 
+            {
+                _parameterValue = value;
+                OnPropertyChanged(nameof(ParameterValue));
+            }
+        }
+       
 
         public event EventHandler CanExecuteChanged
         {
@@ -34,6 +46,7 @@ namespace TotallyNormalCalculator.Core
 
         public void Execute(object parameter)
         {
+            this.ParameterValue = parameter;
             this.execute(parameter);
         }
     }

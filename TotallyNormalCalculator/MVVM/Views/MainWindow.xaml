@@ -1,4 +1,4 @@
-﻿<Window x:Class="TotallyNormalCalculator.MainWindow"
+﻿<Window x:Class="TotallyNormalCalculator.Views.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -7,24 +7,26 @@
         xmlns:viewmodels="clr-namespace:TotallyNormalCalculator.MVVM.ViewModels"
         xmlns:views="clr-namespace:TotallyNormalCalculator.MVVM.Views" 
         xmlns:model="clr-namespace:TotallyNormalCalculator.MVVM.Model"
-        xmlns:core="clr-namespace:TotallyNormalCalculator" d:DataContext="{d:DesignInstance Type=viewmodels:MainViewModel}"
-        mc:Ignorable="d"
+        xmlns:core="clr-namespace:TotallyNormalCalculator"
         Height="600" Width="600" MinHeight="600" MinWidth="650"
         Background="#36393F" AllowsTransparency ="False"
         ResizeMode="CanResizeWithGrip"
         WindowStyle="None">
 
-
-    <!--<Window.DataContext>
-        <viewmodels:DiaryViewModel/>
-    </Window.DataContext>-->
-
-
-    <!--Window.Resources>
-        <DataTemplate x:Name="DiaryView" DataType="{x:Type viewmodels:DiaryViewModel}">
-            <views:DiaryView/>
+    <Window.Resources>
+        <DataTemplate x:Key="DiaryTemplate" DataType="{x:Type viewmodels:DiaryViewModel}">
+            <views:DiaryView DataContext="{Binding}" />
         </DataTemplate>
-    </Window.Resources>-->
+        <DataTemplate x:Key="CalculatorTemplate" DataType="{x:Type viewmodels:CalculatorViewModel}">
+            <views:CalculatorView DataContext="{Binding}" />
+        </DataTemplate>
+    </Window.Resources>
+
+
+
+    <Window.DataContext>
+        <viewmodels:MainViewModel/>
+    </Window.DataContext>
 
 
 
@@ -72,7 +74,7 @@
             </Label>
         </StackPanel>
 
-        <Grid Margin="50,175,50,50" Grid.ColumnSpan="2">
+        <Grid Margin="50,175,50,50">
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
@@ -187,10 +189,7 @@
                     Grid.Row="4" Grid.Column="4" Style="{StaticResource CalculatorButtons}"
                     Content="=">
             </Button>
-
         </Grid>
-        
-        <ContentControl Content="{Binding SelectedViewModel}"/>
-
+        <ContentControl Content="{Binding SelectedViewModel}" Grid.ColumnSpan="2"/>
     </Grid>
 </Window>

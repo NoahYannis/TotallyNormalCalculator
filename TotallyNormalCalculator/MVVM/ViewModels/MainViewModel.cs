@@ -11,7 +11,6 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
     public class MainViewModel : BaseViewModel
     {
         private BaseViewModel _selectedViewModel;
-
         public BaseViewModel SelectedViewModel
         {
             get { return _selectedViewModel; }
@@ -20,14 +19,27 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
                 _selectedViewModel = value;
                 OnPropertyChanged(nameof(SelectedViewModel));
             }
-          
         }
+
+        private BaseViewModel _currentDataContext;
+
+        public BaseViewModel CurrentDataContext
+        {
+            get { return _currentDataContext; }
+            set
+            { 
+                _currentDataContext = value;
+                OnPropertyChanged(nameof(CurrentDataContext));
+            }
+        }
+
 
         public ICommand SwitchViewCommand { get; set; }
         public MainViewModel()
         {
             SwitchViewCommand = new SwitchViewCommand(this);
         }
+
 
     }
 }

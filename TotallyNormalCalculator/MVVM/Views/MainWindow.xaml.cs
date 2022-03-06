@@ -2,16 +2,19 @@
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
+using TotallyNormalCalculator.Core;
 using TotallyNormalCalculator.MVVM;
 using TotallyNormalCalculator.MVVM.Model;
 using TotallyNormalCalculator.MVVM.ViewModels;
 
-namespace TotallyNormalCalculator
+namespace TotallyNormalCalculator.Views
 {
     //public enum Operation { Null, Addition, Subtraction, Multiplication, Division, Power }
 
     public partial class MainWindow : Window
     {
+        public ICommand SwitchViewCommand { get; set; }
+
         public MainWindow()
         {
             InitializeComponent();
@@ -160,7 +163,7 @@ namespace TotallyNormalCalculator
 
         private void ViewModelDiary_Click(object sender, RoutedEventArgs e)
         {
-            DataContext = new DiaryViewModel();
+            //DataContext = new DiaryViewModel();
         }
 
         private void btnRemove_Click(object sender, RoutedEventArgs e)
@@ -241,7 +244,7 @@ namespace TotallyNormalCalculator
                 }
                 else
                 {
-                    secondNumber = (secondNumber * 10) + number;
+                    secondNumber = (secondNumber * 10) + number; 
                     lblResult.Content = secondNumber.ToString();
                 }   
             }

@@ -20,7 +20,16 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
         public RelayCommand AddEntryCommand { get; set; }
         public RelayCommand ReadEntryCommand { get; set; }
         public RelayCommand DeleteEntryCommand { get; set; }
- 
+        public ICommand SwitchViewCommand { get; set; }
+
+        //private BaseViewModel _selectedViewModel;
+        //public BaseViewModel SelectedViewModel
+        //{
+        //    get { return _selectedViewModel;  }
+        //    set { _selectedViewModel = value; }
+        //}
+
+
 
         private DiaryEntryModel _selectedEntry;
 
@@ -149,6 +158,8 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
                 }
 
             });
+
+            SwitchViewCommand = new SwitchViewCommand(new MainViewModel());
 
            
 

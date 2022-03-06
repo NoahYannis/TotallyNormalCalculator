@@ -10,10 +10,10 @@
              xmlns:core="clr-namespace:TotallyNormalCalculator.Core"
              mc:Ignorable="d"
              d:DesignHeight="600" d:DesignWidth="650">
-
+    
 
     <UserControl.DataContext>
-        <viewmodels:DiaryViewModel/>
+        <viewmodels:MainViewModel/>
     </UserControl.DataContext>
 
     <UserControl.Resources>
@@ -173,5 +173,6 @@
 
 
         </Grid>
+        <ContentControl Content="{Binding SelectedViewModel}" Grid.ColumnSpan="2"/>
     </Grid>
 </UserControl>

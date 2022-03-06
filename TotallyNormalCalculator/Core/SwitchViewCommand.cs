@@ -12,9 +12,9 @@ namespace TotallyNormalCalculator.Core
     {
         private MainViewModel viewModel;
 
-        public SwitchViewCommand(MainViewModel viewModel)
+        public SwitchViewCommand(BaseViewModel viewModel)
         {
-            this.viewModel = viewModel;
+            this.viewModel = (MainViewModel)viewModel;
         }
 
         public event EventHandler CanExecuteChanged;
@@ -28,11 +28,14 @@ namespace TotallyNormalCalculator.Core
         {
             if (parameter.ToString() == "Diary")
             {
-                viewModel.SelectedViewModel = new DiaryViewModel(); 
+                viewModel.SelectedViewModel = new DiaryViewModel();
+                viewModel.CurrentDataContext = viewModel.SelectedViewModel;
             }
             else if (parameter.ToString() == "Calculator")
             {
                 viewModel.SelectedViewModel = new CalculatorViewModel();
+                viewModel.CurrentDataContext = new CalculatorViewModel();
+
             }
         }
     }
