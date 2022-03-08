@@ -59,7 +59,7 @@
                     x:Name="lblResult" Height="75" Width="500"
                     Content="{Binding CalculatorText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     Margin="0,0,30,0"
-                    HorizontalAlignment="Center" HorizontalContentAlignment="Right"
+                    HorizontalAlignment="Stretch" HorizontalContentAlignment="Right"
                     VerticalContentAlignment="Center" FontSize="40" FontWeight="DemiBold">
                 </Label>
             </Grid>
@@ -94,19 +94,19 @@
                 </Button>
 
                 <Button x:Name="btnSquareroot" 
-                    Command=""
+                    Command="{Binding AddCharactersCommand}"
                     Grid.Column="2" Style="{StaticResource CalculatorButtons}"
                     Content="√">
                 </Button>
 
                 <Button x:Name="btnDivide"
-                    Command="" 
+                    Command="{Binding AddCharactersCommand}"
                     Grid.Column="3" Style="{StaticResource CalculatorButtons}" 
                     Content="÷">
                 </Button>
 
                 <Button x:Name="btn7" 
-                    Command="{Binding AddNumbersCommand}" 
+                    Command="{Binding AddCharactersCommand}" 
                     Grid.Row="1"  Style="{StaticResource CalculatorButtons}"
                     Content="7">
                 </Button>
@@ -115,70 +115,70 @@
                     Grid.Row="1" Grid.Column="1" 
                     Style="{StaticResource CalculatorButtons}"
                     Content="8" 
-                    Command="{Binding AddNumbersCommand}">
+                    Command="{Binding AddCharactersCommand}">
                     </Button>
 
                <Button x:Name="btn9" 
                     Grid.Row="1" Grid.Column="2" 
                        Style="{StaticResource CalculatorButtons}"
-                    Command="{Binding AddNumbersCommand}" Content="9">
+                    Command="{Binding AddCharactersCommand}" Content="9">
                </Button>
 
                <Button x:Name="btnMultiply"
                     Grid.Row="1" Grid.Column="3"
-                       Style="{StaticResource CalculatorButtons}"
-                    Command="" Content="×">
+                    Style="{StaticResource CalculatorButtons}"
+                    Command="{Binding AddCharactersCommand}" Content="×">
                </Button>
 
                <Button x:Name="btn4" 
                     Grid.Row="2" Style="{StaticResource CalculatorButtons}"
-                    Command="{Binding AddNumbersCommand}" Content="4">
+                    Command="{Binding AddCharactersCommand}" Content="4">
                </Button>
 
                <Button x:Name="btn5" 
                     Grid.Row="2" Grid.Column="1" 
                     Style="{StaticResource CalculatorButtons}"
-                    Command="{Binding AddNumbersCommand}"  Content="5">
+                    Command="{Binding AddCharactersCommand}"  Content="5">
                </Button>
 
                <Button x:Name="btn6" 
                     Grid.Row="2" Grid.Column="2"
                     Style="{StaticResource CalculatorButtons}"
-                    Command="{Binding AddNumbersCommand}" Content="6">
+                    Command="{Binding AddCharactersCommand}" Content="6">
                </Button>
 
                <Button x:Name="btnSubtract"
                     Grid.Row="2" Grid.Column="3" 
                     Style="{StaticResource CalculatorButtons}"
-                    Command="" Content="-">
+                    Command="{Binding AddCharactersCommand}" Content="-">
                </Button>
 
                <Button x:Name="btn1" 
                     Grid.Row="3" Style="{StaticResource CalculatorButtons}"
-                    Command="{Binding AddNumbersCommand}" Content="1">
+                    Command="{Binding AddCharactersCommand}" Content="1">
                </Button>
 
                <Button x:Name="btn2"
-                        Grid.Row="3" Grid.Column="1" 
-                        Style="{StaticResource CalculatorButtons}"
-                        Command="{Binding AddNumbersCommand}" Content="2">
+                     Grid.Row="3" Grid.Column="1" 
+                     Style="{StaticResource CalculatorButtons}"
+                     Command="{Binding AddCharactersCommand}" Content="2">
                </Button>
 
                <Button x:Name="btn3" 
                     Grid.Row="3" Grid.Column="2"
                     Style="{StaticResource CalculatorButtons}"
-                    Command="{Binding AddNumbersCommand}" Content="3">
+                    Command="{Binding AddCharactersCommand}" Content="3">
                </Button>
 
                <Button x:Name="btnAdd" 
                     Grid.Row="3" Grid.Column="3"
                     Style="{StaticResource CalculatorButtons}"
-                    Command="" Content="+">
+                    Command="{Binding AddCharactersCommand}" Content="+">
                </Button>
 
                <Button x:Name="btn0"
                     Grid.Row="4" Style="{StaticResource CalculatorButtons}"
-                    Command="{Binding AddNumbersCommand}" Content="0">
+                    Command="{Binding AddCharactersCommand}" Content="0">
                </Button>
 
                <Button x:Name="btnPoint"
@@ -191,13 +191,14 @@
                <Button x:Name="btnPower" 
                     Grid.Row="4" Grid.Column="2"
                     Style="{StaticResource CalculatorButtons}"
-                    Content=" xⁿ">
+                    Content=" xⁿ"
+                    Command="{Binding AddCharactersCommand}">
                </Button>
 
                 <Button x:Name="btnEquals"
                     Grid.Row="4" Grid.Column="4" 
                     Style="{StaticResource CalculatorButtons}"
-                    Content="=" Command="">
+                    Content="=" Command="{Binding CalculateCommand}">
                 </Button>
             </Grid>
             <ContentControl Content="{Binding SelectedViewModel}"/>

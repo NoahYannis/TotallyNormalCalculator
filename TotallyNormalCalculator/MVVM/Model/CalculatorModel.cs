@@ -6,14 +6,12 @@ using System.Threading.Tasks;
 
 namespace TotallyNormalCalculator
 {
-    
     public class CalculatorModel
     {
 
       
         public static long Add(long x, long y)
-        {
-            
+        {       
             return x + y;   
         }
         

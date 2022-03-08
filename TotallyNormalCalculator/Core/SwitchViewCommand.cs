@@ -35,7 +35,6 @@ namespace TotallyNormalCalculator.Core
             {
                 viewModel.SelectedViewModel = new CalculatorViewModel();
                 viewModel.CurrentDataContext = new CalculatorViewModel();
-
             }
         }
     }

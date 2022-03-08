@@ -16,7 +16,8 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
         public RelayCommand MinimizeCommand { get; set; }
         public RelayCommand MaximizeCommand { get; set; }
         public RelayCommand CloseWindowCommand { get; set; }
-        public RelayCommand AddNumbersCommand { get; set; }
+        public RelayCommand AddCharactersCommand { get; set; }
+        public RelayCommand CalculateCommand { get; set; }
        
 
         private CalculatorViewModel _selectedViewModel;
@@ -32,7 +33,6 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
         }
 
         private string _calculatorText;
-
         public string CalculatorText
         {
             get { return _calculatorText; }
@@ -43,6 +43,50 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
             }
         }
 
+        private long _firstNumber;
+        public long FirstNumber
+        {
+            get { return _firstNumber; }
+            set 
+            {
+                _firstNumber = value;
+                OnPropertyChanged(nameof(FirstNumber));
+            }
+        }
+
+        private long _secondNumber;
+        public long SecondNumber
+        {
+            get { return _secondNumber; }
+            set
+            {
+                _secondNumber = value;
+                OnPropertyChanged(nameof(SecondNumber));
+            }
+        }
+
+        private string _operation;
+        public string Operation
+        {
+            get { return _operation; }
+            set
+            {
+                _operation = value;
+                OnPropertyChanged(nameof(Operation));
+            }
+        }
+
+        private string _result;
+        public string Result
+        {
+            get { return _result; }
+            set 
+            {
+                _result = value;
+                OnPropertyChanged(nameof(Result));
+                CalculatorText = Result;
+            }
+        }
 
 
         public CalculatorViewModel()
@@ -71,12 +115,87 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
                 System.Windows.Application.Current.Shutdown();
             });
 
-
-            AddNumbersCommand = new RelayCommand(o =>
+            AddCharactersCommand = new RelayCommand(o =>
             {
-                CalculatorText += AddNumbersCommand.ParameterValue;
+                CalculatorText += AddCharactersCommand.ParameterValue;
+
+                switch (AddCharactersCommand.ParameterValue)
+                {
+                    case "+":
+                        Operation = "+";
+                        break;
+
+                    case "-":
+                        Operation = "-";
+                        break;
+
+                    case "*":
+                        Operation = "*";
+                        break;
+
+                    case "/":
+                        Operation = "/";
+                        break;
+
+                    case "pow":
+                        Operation = "pow";
+                        break;
+
+                    case "sqrt":
+                        Operation = "sqrt";
+                        break;
+
+                    default:
+                        break;
+                }
+
+                if (Operation == null)
+                {
+                    FirstNumber = Convert.ToInt64(AddCharactersCommand.ParameterValue);
+                }
+                else
+                {
+                    if (!AddCharactersCommand.ParameterValue.Equals(Operation))
+                    {
+                        SecondNumber = Convert.ToInt64(AddCharactersCommand.ParameterValue);
+                    }                
+                }
             });
-       
+
+            CalculateCommand = new RelayCommand(o =>
+            {
+                switch (Operation)
+                {
+                    case "+":
+                        Result = CalculatorModel.Add(FirstNumber, SecondNumber).ToString();
+                        break;
+
+                    case "-":
+                        Result = CalculatorModel.Subtract(FirstNumber, SecondNumber).ToString();
+                        break;
+
+                    case "*":
+                        Result = CalculatorModel.Mulitply(FirstNumber, SecondNumber).ToString();
+                        break;
+
+                    case "/":
+                        Result = CalculatorModel.Divide(FirstNumber, SecondNumber).ToString();
+                        break;
+
+                    case "pow":
+                        Result = Math.Pow(FirstNumber, SecondNumber).ToString();
+                        break;
+
+                    case "sqrt":
+                        Result = Math.Sqrt(FirstNumber).ToString();
+                        break;
+
+                    case null:
+                        CalculatorText = "Invalid operation";
+                        break;
+                }
+            });
+
         }
       
     }

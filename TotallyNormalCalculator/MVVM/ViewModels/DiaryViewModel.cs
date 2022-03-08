@@ -32,7 +32,6 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
 
 
         private DiaryEntryModel _selectedEntry;
-
         public DiaryEntryModel SelectedEntry
         {
             
@@ -45,7 +44,6 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
         }
 
         private string _message;
-
         public string Message
         {
             
@@ -58,7 +56,6 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
         }
 
         private string _title;
-
         public string Title
         {
             get { return _title; }
@@ -70,7 +67,6 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
         }
 
         private string _date;
-
         public string Date
         {
             get { return _date; }
@@ -83,7 +79,6 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
 
         public DiaryViewModel()
         {
-
            Entries = new ObservableCollection<DiaryEntryModel>();
 
            AddEntryCommand = new RelayCommand(o =>
@@ -98,8 +93,6 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
                 Title = "";
                 Message = "";
                 Date = "";
-
-
            });
 
             ReadEntryCommand = new RelayCommand(o =>
@@ -131,9 +124,8 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
 
             DeleteEntryCommand = new RelayCommand(o =>
             {
-
                 if (Entries.Count > 0)
-                {   
+                {
                     var wantsToDeleteEntry = MessageBox.Show("Do you want to permanently delete this entry?", "TotallyNormalCalculator", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
                     if (wantsToDeleteEntry == MessageBoxResult.Yes)
@@ -150,7 +142,7 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
                         {
                             MessageBox.Show("Please select an entry to delete.", "TotallyNormalCalculator", MessageBoxButton.OK, MessageBoxImage.Information);
                         }
-                    }        
+                    }
                 }
                 else
                 {
@@ -160,8 +152,6 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
             });
 
             SwitchViewCommand = new SwitchViewCommand(new MainViewModel());
-
-           
 
             for (int i = 0; i < 10 ; i++)
             {
