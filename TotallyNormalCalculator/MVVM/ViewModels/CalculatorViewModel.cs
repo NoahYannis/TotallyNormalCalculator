@@ -17,7 +17,9 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
         public RelayCommand MaximizeCommand { get; set; }
         public RelayCommand CloseWindowCommand { get; set; }
         public RelayCommand AddCharactersCommand { get; set; }
+        public RelayCommand RemoveCharactersCommand { get; set; }
         public RelayCommand CalculateCommand { get; set; }
+        public RelayCommand AllClearCommand { get; set; }
        
 
         private CalculatorViewModel _selectedViewModel;
@@ -88,9 +90,8 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
             }
         }
 
-
         public CalculatorViewModel()
-        {          
+        {
             SwitchViewCommand = new SwitchViewCommand(new MainViewModel());
 
             MinimizeCommand = new RelayCommand(o =>
@@ -117,7 +118,7 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
 
             AddCharactersCommand = new RelayCommand(o =>
             {
-                CalculatorText += AddCharactersCommand.ParameterValue;
+                CalculatorText += AddCharactersCommand.ParameterValue;    
 
                 switch (AddCharactersCommand.ParameterValue)
                 {
@@ -129,20 +130,20 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
                         Operation = "-";
                         break;
 
-                    case "*":
-                        Operation = "*";
+                    case "×":
+                        Operation = "×";
                         break;
 
-                    case "/":
-                        Operation = "/";
+                    case "÷":
+                        Operation = "÷";
                         break;
 
-                    case "pow":
-                        Operation = "pow";
+                    case "^":
+                        Operation = "^";
                         break;
 
-                    case "sqrt":
-                        Operation = "sqrt";
+                    case "√":
+                        Operation = "√";
                         break;
 
                     default:
@@ -151,14 +152,28 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
 
                 if (Operation == null)
                 {
-                    FirstNumber = Convert.ToInt64(AddCharactersCommand.ParameterValue);
+                    if (CalculatorText.Length == 0)
+                    {
+                        FirstNumber = Convert.ToInt64(AddCharactersCommand.ParameterValue);
+                    }
+                    else
+                    {
+                        FirstNumber = (FirstNumber * 10) + Convert.ToInt64(AddCharactersCommand.ParameterValue);
+                    }
                 }
                 else
                 {
-                    if (!AddCharactersCommand.ParameterValue.Equals(Operation))
+                    if (AddCharactersCommand.ParameterValue.Equals(Operation) == false)
                     {
-                        SecondNumber = Convert.ToInt64(AddCharactersCommand.ParameterValue);
-                    }                
+                        if (CalculatorText.Length == 0)
+                        {
+                            SecondNumber = Convert.ToInt64(AddCharactersCommand.ParameterValue);
+                        }
+                        else
+                        {
+                            SecondNumber = (SecondNumber * 10) + Convert.ToInt64(AddCharactersCommand.ParameterValue);
+                        }
+                    }
                 }
             });
 
@@ -174,19 +189,19 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
                         Result = CalculatorModel.Subtract(FirstNumber, SecondNumber).ToString();
                         break;
 
-                    case "*":
+                    case "×":
                         Result = CalculatorModel.Mulitply(FirstNumber, SecondNumber).ToString();
                         break;
 
-                    case "/":
+                    case "÷":
                         Result = CalculatorModel.Divide(FirstNumber, SecondNumber).ToString();
                         break;
 
-                    case "pow":
+                    case "^":
                         Result = Math.Pow(FirstNumber, SecondNumber).ToString();
                         break;
 
-                    case "sqrt":
+                    case "√":
                         Result = Math.Sqrt(FirstNumber).ToString();
                         break;
 
@@ -194,9 +209,38 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
                         CalculatorText = "Invalid operation";
                         break;
                 }
+
+                FirstNumber = Convert.ToInt64(Result);
+                SecondNumber = 0;
+
             });
 
+            RemoveCharactersCommand = new RelayCommand(o =>
+            {
+                if (Operation == null)
+                {
+                    CalculatorText = CalculatorText.Remove(CalculatorText.Length - 1, 1);
+                    FirstNumber = Convert.ToInt64(CalculatorText);
+                }
+                else
+                {
+                    if (AddCharactersCommand.ParameterValue.ToString() != Operation)
+                    {
+                        CalculatorText = CalculatorText.Remove(CalculatorText.Length - 1, 1);
+                        //SecondNumber = (SecondNumber / 10) - (0,1 * SecondNumber); 
+                    }
+                }
+            });
+
+            AllClearCommand = new RelayCommand(o =>
+            {
+                FirstNumber = 0;
+                SecondNumber = 0;
+                Operation = "";
+                Result = "";
+            });
+
+
         }
-      
     }
 }

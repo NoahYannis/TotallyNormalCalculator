@@ -84,12 +84,12 @@
 
                 <Button x:Name="btnAc"
                     Style="{StaticResource CalculatorButtons}" 
-                    Content="AC :)" Command="">
+                    Content="AC" Command="{Binding AllClearCommand}">
                 </Button>
 
                 <Button x:Name="btnRemove"
                     Grid.Column="1" Style="{StaticResource CalculatorButtons}"
-                    Command="" 
+                    Command="{Binding RemoveCharactersCommand}" 
                     Content="✄">
                 </Button>
 
@@ -120,7 +120,7 @@
 
                <Button x:Name="btn9" 
                     Grid.Row="1" Grid.Column="2" 
-                       Style="{StaticResource CalculatorButtons}"
+                    Style="{StaticResource CalculatorButtons}"
                     Command="{Binding AddCharactersCommand}" Content="9">
                </Button>
 
@@ -191,7 +191,7 @@
                <Button x:Name="btnPower" 
                     Grid.Row="4" Grid.Column="2"
                     Style="{StaticResource CalculatorButtons}"
-                    Content=" xⁿ"
+                    Content="xⁿ" CommandParameter="^"
                     Command="{Binding AddCharactersCommand}">
                </Button>
 
