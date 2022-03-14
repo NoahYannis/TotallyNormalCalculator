@@ -10,7 +10,7 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
 {
     public class MainViewModel : BaseViewModel
     {
-        private BaseViewModel _selectedViewModel;
+        private BaseViewModel _selectedViewModel = new CalculatorViewModel();
         public BaseViewModel SelectedViewModel
         {
             get { return _selectedViewModel; }
@@ -21,8 +21,7 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
             }
         }
 
-        private BaseViewModel _currentDataContext;
-
+        private BaseViewModel _currentDataContext = new CalculatorViewModel();
         public BaseViewModel CurrentDataContext
         {
             get { return _currentDataContext; }
@@ -33,10 +32,49 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
             }
         }
 
+        //private CalculatorViewModel calculatorViewModel;
 
+        //public CalculatorViewModel CalculatorViewModel
+        //{
+        //    get { return calculatorViewModel; }
+        //    set
+        //    {
+        //        calculatorViewModel = value;
+        //        OnPropertyChanged(nameof(CalculatorViewModel));
+        //    }
+        //}
+
+        //private DiaryViewModel diaryViewModel;
+
+        //public DiaryViewModel DiaryViewModel
+        //{
+        //    get { return diaryViewModel; }
+        //    set
+        //    {
+        //        diaryViewModel = value;
+        //        OnPropertyChanged(nameof(DiaryViewModel));
+        //    }
+        //}
+
+
+
+        //public RelayCommand SwitchViewCommand { get; set; }
         public ICommand SwitchViewCommand { get; set; }
         public MainViewModel()
         {
+
+            //SwitchViewCommand = new RelayCommand(o =>
+            //{
+            //    if (SwitchViewCommand.ParameterValue.ToString() == "Diary")
+            //    {
+            //        SelectedViewModel = new DiaryViewModel();
+            //    }
+            //    else if (SwitchViewCommand.ParameterValue.ToString() == "Calculator")
+            //    {
+            //        SelectedViewModel = new CalculatorViewModel();
+            //    }
+            //});
+            //
             SwitchViewCommand = new SwitchViewCommand(this);
         }
 

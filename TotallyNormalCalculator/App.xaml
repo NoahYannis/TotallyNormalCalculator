@@ -14,10 +14,10 @@
                 <ResourceDictionary x:Name="DiaryButtons" Source="./Themes/DiaryButtons.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <DataTemplate DataType="{x:Type viewmodels:DiaryViewModel}">
-                <views:DiaryView />
+                <views:DiaryView DataContext="{x:Type viewmodels:DiaryViewModel}"/>
             </DataTemplate>
             <DataTemplate DataType="{x:Type viewmodels:CalculatorViewModel}">
-                <views:CalculatorView />
+                <views:CalculatorView DataContext="{x:Type viewmodels:CalculatorViewModel}"/>
             </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>

@@ -1,18 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Input;
 using TotallyNormalCalculator.Core;
-using TotallyNormalCalculator.MVVM.ViewModels;
 
 namespace TotallyNormalCalculator.MVVM.ViewModels
 {
     public class CalculatorViewModel : BaseViewModel
     {
-        public ICommand SwitchViewCommand { get; set; }
+        public RelayCommand SwitchViewCommand { get; set; }
         public RelayCommand MinimizeCommand { get; set; }
         public RelayCommand MaximizeCommand { get; set; }
         public RelayCommand CloseWindowCommand { get; set; }
@@ -22,9 +16,8 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
         public RelayCommand AllClearCommand { get; set; }
        
 
-        private CalculatorViewModel _selectedViewModel;
-        public CalculatorViewModel SelectedViewModel
-
+        private BaseViewModel _selectedViewModel;
+        public BaseViewModel SelectedViewModel
         {
             get { return _selectedViewModel; }
             set
@@ -34,7 +27,7 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
             }
         }
 
-        private string _calculatorText;
+        private string _calculatorText = "";
         public string CalculatorText
         {
             get { return _calculatorText; }
@@ -45,8 +38,8 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
             }
         }
 
-        private long _firstNumber;
-        public long FirstNumber
+        private double _firstNumber;
+        public double FirstNumber
         {
             get { return _firstNumber; }
             set 
@@ -56,8 +49,8 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
             }
         }
 
-        private long _secondNumber;
-        public long SecondNumber
+        private double _secondNumber;
+        public double SecondNumber
         {
             get { return _secondNumber; }
             set
@@ -78,101 +71,135 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
             }
         }
 
-        private string _result;
-        public string Result
+        private double _result;
+        public double Result
         {
             get { return _result; }
             set 
             {
                 _result = value;
                 OnPropertyChanged(nameof(Result));
-                CalculatorText = Result;
+                CalculatorText = Result.ToString();
             }
         }
 
+
         public CalculatorViewModel()
         {
-            SwitchViewCommand = new SwitchViewCommand(new MainViewModel());
+            SwitchViewCommand = new RelayCommand(o =>
+            {
+                SelectedViewModel = new DiaryViewModel();
+            });
 
             MinimizeCommand = new RelayCommand(o =>
             {
-                System.Windows.Application.Current.MainWindow.WindowState = WindowState.Minimized;
+                Application.Current.MainWindow.WindowState = WindowState.Minimized;
             });
 
             MaximizeCommand = new RelayCommand(o =>
             {
-                if (System.Windows.Application.Current.MainWindow.WindowState != WindowState.Maximized)
+                if (Application.Current.MainWindow.WindowState != WindowState.Maximized)
                 {
-                    System.Windows.Application.Current.MainWindow.WindowState = WindowState.Maximized;
+                    Application.Current.MainWindow.WindowState = WindowState.Maximized;
                 }
                 else
                 {
-                    System.Windows.Application.Current.MainWindow.WindowState = WindowState.Normal;
+                    Application.Current.MainWindow.WindowState = WindowState.Normal;
                 }
             });
 
             CloseWindowCommand = new RelayCommand(o =>
             {
-                System.Windows.Application.Current.Shutdown();
+                Application.Current.Shutdown();
             });
 
             AddCharactersCommand = new RelayCommand(o =>
             {
-                CalculatorText += AddCharactersCommand.ParameterValue;    
 
-                switch (AddCharactersCommand.ParameterValue)
+                CalculatorText += AddCharactersCommand.ParameterValue;
+
+                
+                if (CalculatorText.Length > 1)
                 {
-                    case "+":
-                        Operation = "+";
-                        break;
+                    switch (AddCharactersCommand.ParameterValue)
+                    {
+                        case "+":
+                            Operation = "+";
+                            break;
 
-                    case "-":
-                        Operation = "-";
-                        break;
+                        case "-":
+                            Operation = "-";
+                            break;
 
-                    case "×":
-                        Operation = "×";
-                        break;
+                        case "×":
+                            Operation = "×";
+                            break;
 
-                    case "÷":
-                        Operation = "÷";
-                        break;
+                        case "÷":
+                            Operation = "÷";
+                            break;
 
-                    case "^":
-                        Operation = "^";
-                        break;
+                        case "^":
+                            Operation = "^";
+                            break;
 
-                    case "√":
-                        Operation = "√";
-                        break;
+                        case "√":
+                            Operation = "√";
+                            break;
 
-                    default:
-                        break;
+                        default:
+                            break;
+                    } 
                 }
 
                 if (Operation == null)
                 {
                     if (CalculatorText.Length == 0)
                     {
-                        FirstNumber = Convert.ToInt64(AddCharactersCommand.ParameterValue);
+                        try
+                        {
+                            FirstNumber = Convert.ToInt64(AddCharactersCommand.ParameterValue);
+                        }
+                        catch (Exception)
+                        {
+                            FirstNumber = 0;
+                        }                 
                     }
                     else
                     {
-                        FirstNumber = (FirstNumber * 10) + Convert.ToInt64(AddCharactersCommand.ParameterValue);
+                        try
+                        {
+                            FirstNumber = (FirstNumber * 10) + Convert.ToInt64(AddCharactersCommand.ParameterValue);
+                        }
+                        catch (Exception)
+                        {
+                            FirstNumber = 0;
+                        }                   
                     }
                 }
                 else
                 {
-                    if (AddCharactersCommand.ParameterValue.Equals(Operation) == false)
+                    if (CalculatorText.Length == 0)
                     {
-                        if (CalculatorText.Length == 0)
+                        try
                         {
                             SecondNumber = Convert.ToInt64(AddCharactersCommand.ParameterValue);
                         }
-                        else
+                        catch (Exception)
+                        {
+                            SecondNumber = 0;
+                        }         
+                    }
+                    else
+                    {
+                        try
                         {
                             SecondNumber = (SecondNumber * 10) + Convert.ToInt64(AddCharactersCommand.ParameterValue);
                         }
+                        catch (Exception)
+                        {
+                            SecondNumber = 0;
+                        }         
                     }
                 }
             });
@@ -182,27 +209,27 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
                 switch (Operation)
                 {
                     case "+":
-                        Result = CalculatorModel.Add(FirstNumber, SecondNumber).ToString();
+                        Result = CalculatorModel.Add(FirstNumber, SecondNumber);
                         break;
 
                     case "-":
-                        Result = CalculatorModel.Subtract(FirstNumber, SecondNumber).ToString();
+                        Result = CalculatorModel.Subtract(FirstNumber, SecondNumber);
                         break;
 
                     case "×":
-                        Result = CalculatorModel.Mulitply(FirstNumber, SecondNumber).ToString();
+                        Result = CalculatorModel.Mulitply(FirstNumber, SecondNumber);
                         break;
 
                     case "÷":
-                        Result = CalculatorModel.Divide(FirstNumber, SecondNumber).ToString();
+                        Result = CalculatorModel.Divide(FirstNumber, SecondNumber);
                         break;
 
                     case "^":
-                        Result = Math.Pow(FirstNumber, SecondNumber).ToString();
+                        Result = Math.Pow(FirstNumber, SecondNumber);
                         break;
 
                     case "√":
-                        Result = Math.Sqrt(FirstNumber).ToString();
+                        Result = Math.Sqrt(FirstNumber);
                         break;
 
                     case null:
@@ -210,7 +237,16 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
                         break;
                 }
 
-                FirstNumber = Convert.ToInt64(Result);
+                try
+                {
+                    FirstNumber = Convert.ToDouble(Result);
+                }
+                catch (Exception)
+                {
+                    FirstNumber = 0;
+                    Result = 0;
+                }     
+                
                 SecondNumber = 0;
 
             });
@@ -227,7 +263,7 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
                     if (AddCharactersCommand.ParameterValue.ToString() != Operation)
                     {
                         CalculatorText = CalculatorText.Remove(CalculatorText.Length - 1, 1);
-                        //SecondNumber = (SecondNumber / 10) - (0,1 * SecondNumber); 
+                        SecondNumber = (SecondNumber / 10) - ((long)0.1 * SecondNumber);
                     }
                 }
             });
@@ -236,11 +272,9 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
             {
                 FirstNumber = 0;
                 SecondNumber = 0;
-                Operation = "";
-                Result = "";
+                Operation = null;
+                Result = 0;
             });
-
-
         }
     }
 }

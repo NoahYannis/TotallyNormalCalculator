@@ -4,25 +4,25 @@ namespace TotallyNormalCalculator
 {
     public class CalculatorModel
     { 
-        public static long Add(long x, long y)
+        public static double Add(double x, double y)
         {       
             return x + y;   
         }
         
-        public static long Subtract(long x, long y)
+        public static double Subtract(double x, double y)
         {
             return x - y;
         }
 
-        public static long Mulitply(long x, long y)
+        public static double Mulitply(double x, double y)
         {
             return x * y;
         }
 
-        public static object Divide(long x, long y)
+        public static double Divide(double x, double y)
         {
             try
-            {
+            {            
                 return x / y;
             }
             catch (DivideByZeroException)

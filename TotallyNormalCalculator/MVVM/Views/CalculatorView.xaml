@@ -13,15 +13,17 @@
         <viewmodels:CalculatorViewModel/>
     </UserControl.DataContext>
 
+
     <Grid>
         <Grid>
             <Border 
                     Background="#252525" Grid.ColumnSpan="2"
                     core:EnableDragHelper.EnableDrag="True">
-                <StackPanel 
-                    Margin="0,0,0,545" 
-                    HorizontalAlignment="Right" 
-                    Orientation="Horizontal" Grid.Column="1">
+                <Grid
+                    VerticalAlignment="Top" 
+                    HorizontalAlignment="Right"
+                    
+                    Margin="0,20,0,0">
 
                     <Button
                         x:Name="btnMinimieren" 
@@ -29,7 +31,8 @@
                         Height="20" Width="20" Background="Gray"
                         Content="🗕" FontWeight="Bold"
                         BorderThickness="0"
-                        VerticalContentAlignment="Top">
+                        VerticalContentAlignment="Top"
+                        Margin="0,0,80,0">
                     </Button>
 
                     <Button 
@@ -37,7 +40,8 @@
                         Command="{Binding MaximizeCommand}"
                         Height="20" Width="20" Background="Gray"
                         Content="□" FontWeight="ExtraBold"
-                        BorderThickness="0">
+                        BorderThickness="0"
+                        Margin="0,0,40,0">
                     </Button>
 
                     <Button
@@ -45,11 +49,9 @@
                         Command="{Binding CloseWindowCommand}"
                         Height="20" Width="20" Background="Gray"
                         Content="X" FontWeight="Bold"
-                        BorderThickness="0"
-                        Margin="0,0,5,0">
+                        BorderThickness="0">
                     </Button>
-
-                </StackPanel>
+                </Grid>
             </Border>
 
             <Grid HorizontalAlignment="Center" VerticalAlignment="Top"
@@ -58,7 +60,7 @@
                 <Label 
                     x:Name="lblResult" Height="75" Width="500"
                     Content="{Binding CalculatorText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                    Margin="0,0,30,0"
+                    Margin="30,0,30,0"
                     HorizontalAlignment="Stretch" HorizontalContentAlignment="Right"
                     VerticalContentAlignment="Center" FontSize="40" FontWeight="DemiBold">
                 </Label>
@@ -111,89 +113,89 @@
                     Content="7">
                 </Button>
 
-               <Button x:Name="btn8"
+                <Button x:Name="btn8"
                     Grid.Row="1" Grid.Column="1" 
                     Style="{StaticResource CalculatorButtons}"
                     Content="8" 
                     Command="{Binding AddCharactersCommand}">
-                    </Button>
+                </Button>
 
-               <Button x:Name="btn9" 
+                <Button x:Name="btn9" 
                     Grid.Row="1" Grid.Column="2" 
                     Style="{StaticResource CalculatorButtons}"
                     Command="{Binding AddCharactersCommand}" Content="9">
-               </Button>
+                </Button>
 
-               <Button x:Name="btnMultiply"
+                <Button x:Name="btnMultiply"
                     Grid.Row="1" Grid.Column="3"
                     Style="{StaticResource CalculatorButtons}"
                     Command="{Binding AddCharactersCommand}" Content="×">
-               </Button>
+                </Button>
 
-               <Button x:Name="btn4" 
+                <Button x:Name="btn4" 
                     Grid.Row="2" Style="{StaticResource CalculatorButtons}"
                     Command="{Binding AddCharactersCommand}" Content="4">
-               </Button>
+                </Button>
 
-               <Button x:Name="btn5" 
+                <Button x:Name="btn5" 
                     Grid.Row="2" Grid.Column="1" 
                     Style="{StaticResource CalculatorButtons}"
                     Command="{Binding AddCharactersCommand}"  Content="5">
-               </Button>
+                </Button>
 
-               <Button x:Name="btn6" 
+                <Button x:Name="btn6" 
                     Grid.Row="2" Grid.Column="2"
                     Style="{StaticResource CalculatorButtons}"
                     Command="{Binding AddCharactersCommand}" Content="6">
-               </Button>
+                </Button>
 
-               <Button x:Name="btnSubtract"
+                <Button x:Name="btnSubtract"
                     Grid.Row="2" Grid.Column="3" 
                     Style="{StaticResource CalculatorButtons}"
                     Command="{Binding AddCharactersCommand}" Content="-">
-               </Button>
+                </Button>
 
-               <Button x:Name="btn1" 
+                <Button x:Name="btn1" 
                     Grid.Row="3" Style="{StaticResource CalculatorButtons}"
                     Command="{Binding AddCharactersCommand}" Content="1">
-               </Button>
+                </Button>
 
-               <Button x:Name="btn2"
+                <Button x:Name="btn2"
                      Grid.Row="3" Grid.Column="1" 
                      Style="{StaticResource CalculatorButtons}"
                      Command="{Binding AddCharactersCommand}" Content="2">
-               </Button>
+                </Button>
 
-               <Button x:Name="btn3" 
+                <Button x:Name="btn3" 
                     Grid.Row="3" Grid.Column="2"
                     Style="{StaticResource CalculatorButtons}"
                     Command="{Binding AddCharactersCommand}" Content="3">
-               </Button>
+                </Button>
 
-               <Button x:Name="btnAdd" 
+                <Button x:Name="btnAdd" 
                     Grid.Row="3" Grid.Column="3"
                     Style="{StaticResource CalculatorButtons}"
                     Command="{Binding AddCharactersCommand}" Content="+">
-               </Button>
+                </Button>
 
-               <Button x:Name="btn0"
+                <Button x:Name="btn0"
                     Grid.Row="4" Style="{StaticResource CalculatorButtons}"
                     Command="{Binding AddCharactersCommand}" Content="0">
-               </Button>
+                </Button>
 
-               <Button x:Name="btnPoint"
+                <Button x:Name="btnPoint"
                     Grid.Row="4" Grid.Column="1"
                     Style="{StaticResource CalculatorButtons}"
                     Content="."
                     Command="{Binding SwitchViewCommand}" CommandParameter="Diary">
-               </Button>
+                </Button>
 
-               <Button x:Name="btnPower" 
+                <Button x:Name="btnPower" 
                     Grid.Row="4" Grid.Column="2"
                     Style="{StaticResource CalculatorButtons}"
                     Content="xⁿ" CommandParameter="^"
                     Command="{Binding AddCharactersCommand}">
-               </Button>
+                </Button>
 
                 <Button x:Name="btnEquals"
                     Grid.Row="4" Grid.Column="4" 
@@ -201,7 +203,7 @@
                     Content="=" Command="{Binding CalculateCommand}">
                 </Button>
             </Grid>
-            <ContentControl Content="{Binding SelectedViewModel}"/>
         </Grid>
+        <ContentControl Content="{Binding SelectedViewModel}"/>
     </Grid>
 </UserControl>

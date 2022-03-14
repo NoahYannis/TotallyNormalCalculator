@@ -20,16 +20,7 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
         public RelayCommand AddEntryCommand { get; set; }
         public RelayCommand ReadEntryCommand { get; set; }
         public RelayCommand DeleteEntryCommand { get; set; }
-        public ICommand SwitchViewCommand { get; set; }
-
-        //private BaseViewModel _selectedViewModel;
-        //public BaseViewModel SelectedViewModel
-        //{
-        //    get { return _selectedViewModel;  }
-        //    set { _selectedViewModel = value; }
-        //}
-
-
+        public RelayCommand SwitchViewCommand { get; set; }
 
         private DiaryEntryModel _selectedEntry;
         public DiaryEntryModel SelectedEntry
@@ -77,6 +68,17 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
             }
         }
 
+        private BaseViewModel _selectedViewModel;
+        public BaseViewModel SelectedViewModel
+        {
+            get { return _selectedViewModel; }
+            set
+            {
+                _selectedViewModel = value;
+                OnPropertyChanged(nameof(SelectedViewModel));
+            }
+        }
+
         public DiaryViewModel()
         {
            Entries = new ObservableCollection<DiaryEntryModel>();
@@ -95,7 +97,7 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
                 Date = "";
            });
 
-            ReadEntryCommand = new RelayCommand(o =>
+           ReadEntryCommand = new RelayCommand(o =>
             {
                 if (Entries.Count > 0)
                 {
@@ -122,7 +124,7 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
 
             });
 
-            DeleteEntryCommand = new RelayCommand(o =>
+           DeleteEntryCommand = new RelayCommand(o =>
             {
                 if (Entries.Count > 0)
                 {
@@ -151,17 +153,10 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
 
             });
 
-            SwitchViewCommand = new SwitchViewCommand(new MainViewModel());
-
-            for (int i = 0; i < 10 ; i++)
-            {
-                Entries.Add(new DiaryEntryModel
-                {
-                    Title = "Test",
-                    Message = "Test",
-                    Date = "Test"
-                });
-            }
+           SwitchViewCommand = new RelayCommand(o =>
+           {
+               SelectedViewModel = new CalculatorViewModel();
+           });
         }
     }
 }

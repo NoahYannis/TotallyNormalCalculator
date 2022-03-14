@@ -32,7 +32,6 @@ namespace TotallyNormalCalculator.Core
             {
                 uiElement.MouseMove -= UIElementOnMouseMove;
             }
-
         }
 
         private static void UIElementOnMouseMove(object sender, MouseEventArgs mouseEventArgs)

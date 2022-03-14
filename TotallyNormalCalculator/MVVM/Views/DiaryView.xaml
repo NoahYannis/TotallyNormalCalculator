@@ -3,9 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:TotallyNormalCalculator.MVVM.Views"
              xmlns:viewmodels="clr-namespace:TotallyNormalCalculator.MVVM.ViewModels"
-             xmlns:views="clr-namespace:TotallyNormalCalculator.MVVM.Views"
              xmlns:model="clr-namespace:TotallyNormalCalculator.MVVM.Model"
              xmlns:core="clr-namespace:TotallyNormalCalculator.Core"
              mc:Ignorable="d"
@@ -13,15 +11,12 @@
     
 
     <UserControl.DataContext>
-        <viewmodels:MainViewModel/>
+        <viewmodels:DiaryViewModel/>
     </UserControl.DataContext>
 
     <UserControl.Resources>
         <model:DiaryEntryModel x:Key="DiaryEntryModel"/>
     </UserControl.Resources>
-
-
-
 
     <Grid Background="LightGreen">
         <Grid.ColumnDefinitions>
@@ -60,14 +55,13 @@
 
         <Grid Grid.Column="0" Grid.ColumnSpan="2" Background="LightGreen" VerticalAlignment="Center" Height="0"/>
 
-        <ListView x:Name="ListViewEntries" Grid.Column="0" BorderThickness="0" 
-                  DataContext="{Binding}" core:ListBoxBehavior.ScrollOnNewItem="True"
-                  SelectedItem="{Binding SelectedEntry}"
-                  ItemsSource="{Binding Entries}"
-                  ItemContainerStyle="{StaticResource DiaryEntries}" Margin="0,25,0,0"/>
-
-
-
+        <ListView 
+            x:Name="ListViewEntries" Grid.Column="0" BorderThickness="0" 
+            DataContext="{Binding}" core:ListBoxBehavior.ScrollOnNewItem="True"
+            SelectedItem="{Binding SelectedEntry}"
+            ItemsSource="{Binding Entries}"
+            ItemContainerStyle="{StaticResource DiaryEntries}" Margin="0,25,0,0">
+        </ListView>
 
         <Grid Grid.Column="1">
             <Grid.ColumnDefinitions>
@@ -81,22 +75,27 @@
             </Grid.RowDefinitions>
 
             <Grid Grid.Row="0" Grid.ColumnSpan="2">
+                
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="7*"/>
                     <ColumnDefinition Width="43*"/>
                 </Grid.ColumnDefinitions>
-                <TextBox x:Name="txtTitle" Height="30" 
-                     MinHeight="30" VerticalAlignment="Bottom"
-                     core:CornerRadiusSetter.CornerRadius="5"
-                     Text="{Binding Path=Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="15" Margin="10,0,170,10" Grid.ColumnSpan="2"/>
+
+                <TextBox 
+                    x:Name="txtTitle" Height="30" 
+                    MinHeight="30" VerticalAlignment="Bottom"
+                    core:CornerRadiusSetter.CornerRadius="5"
+                    Text="{Binding Path=Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                    FontSize="15" Margin="10,0,170,10" Grid.ColumnSpan="2">
+                </TextBox>
 
                 <TextBlock IsHitTestVisible="False"
-                       Text="Title"
-                       VerticalAlignment="Bottom"
-                       HorizontalAlignment="Left"
-                       FontSize="15"
-                       Foreground="DarkGray"
-                       Margin="15,0,0,16">
+                     Text="Title"
+                     VerticalAlignment="Bottom"
+                     HorizontalAlignment="Left"
+                     FontSize="15"
+                     Foreground="DarkGray"
+                     Margin="15,0,0,16">
 
                     <TextBlock.Style>
                         <Style TargetType="TextBlock">
