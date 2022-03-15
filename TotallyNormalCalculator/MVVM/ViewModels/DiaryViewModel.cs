@@ -1,22 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 using System.Windows;
-using System.Windows.Input;
 using TotallyNormalCalculator.Core;
 using TotallyNormalCalculator.MVVM.Model;
 
 
 namespace TotallyNormalCalculator.MVVM.ViewModels
-{ 
+{
     public class DiaryViewModel : BaseViewModel
     {
         public ObservableCollection<DiaryEntryModel> Entries { get; set; }
+        public RelayCommand MinimizeCommand { get; set; }
+        public RelayCommand MaximizeCommand { get; set; }
+        public RelayCommand CloseWindowCommand { get; set; }
         public RelayCommand AddEntryCommand { get; set; }
         public RelayCommand ReadEntryCommand { get; set; }
         public RelayCommand DeleteEntryCommand { get; set; }
@@ -81,6 +76,28 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
 
         public DiaryViewModel()
         {
+           MinimizeCommand = new RelayCommand(o =>
+            {
+                Application.Current.MainWindow.WindowState = WindowState.Minimized;
+            });
+
+           MaximizeCommand = new RelayCommand(o =>
+            {
+                if (Application.Current.MainWindow.WindowState != WindowState.Maximized)
+                {
+                    Application.Current.MainWindow.WindowState = WindowState.Maximized;
+                }
+                else
+                {
+                    Application.Current.MainWindow.WindowState = WindowState.Normal;
+                }
+            });
+
+           CloseWindowCommand = new RelayCommand(o =>
+            {
+                Application.Current.Shutdown();
+            });
+
            Entries = new ObservableCollection<DiaryEntryModel>();
 
            AddEntryCommand = new RelayCommand(o =>

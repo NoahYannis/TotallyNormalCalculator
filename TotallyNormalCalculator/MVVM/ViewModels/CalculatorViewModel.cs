@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows;
+using System.Linq;
 using TotallyNormalCalculator.Core;
 
 namespace TotallyNormalCalculator.MVVM.ViewModels
@@ -15,7 +16,6 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
         public RelayCommand CalculateCommand { get; set; }
         public RelayCommand AllClearCommand { get; set; }
        
-
         private BaseViewModel _selectedViewModel;
         public BaseViewModel SelectedViewModel
         {
@@ -83,12 +83,21 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
             }
         }
 
+        private int switchViewCounter;
+
 
         public CalculatorViewModel()
         {
+
             SwitchViewCommand = new RelayCommand(o =>
             {
-                SelectedViewModel = new DiaryViewModel();
+                switchViewCounter++;
+
+                if (switchViewCounter == 4)
+                {
+                    SelectedViewModel = new DiaryViewModel();
+                    switchViewCounter = 0;
+                }
             });
 
             MinimizeCommand = new RelayCommand(o =>
@@ -115,9 +124,33 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
 
             AddCharactersCommand = new RelayCommand(o =>
             {
+                string charTest = AddCharactersCommand.ParameterValue.ToString();
+                bool IsValidInput = charTest.All(x => char.IsDigit(x) || '-' == x);
 
-                CalculatorText += AddCharactersCommand.ParameterValue;
+                if (CalculatorText.Length == 0)
+                {
+                    if (IsValidInput)
+                    {
+                        CalculatorText = AddCharactersCommand.ParameterValue.ToString();
+                    }           
+                }
+                else
+                {
+                    IsValidInput = charTest.All(x => char.IsDigit(x) || '.' == x || '-' == x);
 
+                    if (Operation == null)
+                    {
+                        CalculatorText += AddCharactersCommand.ParameterValue;
+                    }
+                    else
+                    {
+                        if (IsValidInput)
+                        {
+                            CalculatorText += AddCharactersCommand.ParameterValue;
+                        }
+                    }
+                }
+                
                 
                 if (CalculatorText.Length > 1)
                 {
@@ -163,7 +196,7 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
                         catch (Exception)
                         {
                             FirstNumber = 0;
-                        }                 
+                        }
                     }
                     else
                     {
@@ -174,7 +207,7 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
                         catch (Exception)
                         {
                             FirstNumber = 0;
-                        }                   
+                        }
                     }
                 }
                 else
@@ -183,7 +216,14 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
                     {
                         try
                         {
-                            SecondNumber = Convert.ToInt64(AddCharactersCommand.ParameterValue);
+                            if (!CalculatorText.StartsWith("-"))
+                            {
+                                SecondNumber = Convert.ToInt64(AddCharactersCommand.ParameterValue);
+                            }
+                            else
+                            {
+                                SecondNumber = Convert.ToInt64(AddCharactersCommand.ParameterValue) * (-1);
+                            }
                         }
                         catch (Exception)
                         {
@@ -248,23 +288,31 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
                 }     
                 
                 SecondNumber = 0;
+                switchViewCounter = 0;
 
             });
 
             RemoveCharactersCommand = new RelayCommand(o =>
             {
-                if (Operation == null)
+                try
                 {
-                    CalculatorText = CalculatorText.Remove(CalculatorText.Length - 1, 1);
-                    FirstNumber = Convert.ToInt64(CalculatorText);
-                }
-                else
-                {
-                    if (AddCharactersCommand.ParameterValue.ToString() != Operation)
+                    if (Operation == null)
                     {
                         CalculatorText = CalculatorText.Remove(CalculatorText.Length - 1, 1);
-                        SecondNumber = (SecondNumber / 10) - ((long)0.1 * SecondNumber);
+                        FirstNumber = Convert.ToInt64(CalculatorText);
                     }
+                    else
+                    {
+                        if (AddCharactersCommand.ParameterValue.ToString() != Operation)
+                        {
+                            CalculatorText = CalculatorText.Remove(CalculatorText.Length - 1, 1);
+                            SecondNumber = (SecondNumber / 10) - ((long)0.1 * SecondNumber);
+                        }
+                    }
+                }
+                catch (Exception)
+                {
+                    CalculatorText = "";
                 }
             });
 
@@ -274,6 +322,8 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
                 SecondNumber = 0;
                 Operation = null;
                 Result = 0;
+                CalculatorText = "";
+                switchViewCounter = 0;
             });
         }
     }

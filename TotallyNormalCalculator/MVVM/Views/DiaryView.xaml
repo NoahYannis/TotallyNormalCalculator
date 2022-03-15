@@ -29,20 +29,20 @@
 
             <Grid HorizontalAlignment="Right" Margin="0,0,20,0" MinHeight="25">
 
-                <Button x:Name="btnMinimize" Click="btnMinimize_Click" 
+                <Button x:Name="btnMinimize" Command="{Binding MinimizeCommand}" 
                     Height="18" Width="18" Background="LightGreen" Margin="470,0,0,0"
                     Content="🗕" FontWeight="Bold"
                     BorderThickness="0"
                     VerticalContentAlignment="Top">
                 </Button>
 
-                <Button x:Name="btnMaximize" Click="btnMaximize_Click" Margin="500,0,0,0"
+                <Button x:Name="btnMaximize" Command="{Binding MaximizeCommand}" Margin="500,0,0,0"
                     Height="18" Width="18" Background="LightGreen"
                     Content="□" FontWeight="ExtraBold" 
                     BorderThickness="0">
                 </Button>
 
-                <Button x:Name="btnClose" Click="btnClose_Click" Margin="530,0,0,0"
+                <Button x:Name="btnClose" Command="{Binding CloseWindowCommand}" Margin="530,0,0,0"
                     Height="18" Width="18" Background="LightGreen"
                     Content="X" FontWeight="Bold"
                     BorderThickness="0">
@@ -167,7 +167,7 @@
                 <Button x:Name="btnDelete" Command="{Binding DeleteEntryCommand}" Style="{StaticResource DiaryButtons}" Content="Delete"  Margin="-350,0,0,0"  Height="30" MinHeight="30" Width="80" MinWidth="80"/>
                 <Button x:Name="btnRead" Command="{Binding ReadEntryCommand}" Style="{StaticResource DiaryButtons}" Content="Read" Margin="-125,0,0,0" Height="30" MinHeight="30" Width="80" MinWidth="80"/>
                 <Button x:Name="btnAdd"  Command="{Binding AddEntryCommand}" Style="{StaticResource DiaryButtons}" Content="Add" Margin="100,0,0,0" Height="30" MinHeight="30" Width="80" MinWidth="80"/>
-                <Button x:Name="btnCalculator" CommandParameter="Calculator" Command="{Binding SwitchViewCommand}" Style="{StaticResource DiaryButtons}" Content="Calculator ⭯" Background="BurlyWood" Margin="325,0,0,0" Width="100" />
+                <Button x:Name="btnCalculator" Command="{Binding SwitchViewCommand}" Style="{StaticResource DiaryButtons}" Content="Calculator ⭯" Background="BurlyWood" Margin="325,0,0,0" Width="100" />
             </Grid>
 
 

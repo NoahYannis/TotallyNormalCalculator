@@ -5,7 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:core="clr-namespace:TotallyNormalCalculator.Core"
              xmlns:local="clr-namespace:TotallyNormalCalculator.MVVM.Views" 
-             xmlns:viewmodels="clr-namespace:TotallyNormalCalculator.MVVM.ViewModels"
+             xmlns:viewmodels="clr-namespace:TotallyNormalCalculator.MVVM.ViewModels" 
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d"  MinHeight="600" MinWidth="550"
              d:DesignHeight="600" d:DesignWidth="650">
 
@@ -187,7 +188,13 @@
                     Grid.Row="4" Grid.Column="1"
                     Style="{StaticResource CalculatorButtons}"
                     Content="."
-                    Command="{Binding SwitchViewCommand}" CommandParameter="Diary">
+                    Command="{Binding SwitchViewCommand}" CommandParameter=".">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <i:InvokeCommandAction Command="{Binding AddCharactersCommand}" CommandParameter="."/>
+                            <i:InvokeCommandAction Command="{Binding SwitchViewCommand}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
                 </Button>
 
                 <Button x:Name="btnPower" 

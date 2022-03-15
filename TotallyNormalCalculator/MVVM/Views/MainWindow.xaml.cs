@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.Windows;
-using System.Windows.Input;
-using TotallyNormalCalculator.Core;
-using TotallyNormalCalculator.MVVM;
-using TotallyNormalCalculator.MVVM.Model;
-using TotallyNormalCalculator.MVVM.ViewModels;
+﻿using System.Windows;
 
 namespace TotallyNormalCalculator.Views
 {
