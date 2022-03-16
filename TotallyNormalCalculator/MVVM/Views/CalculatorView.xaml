@@ -27,7 +27,7 @@
                     Margin="0,20,0,0">
 
                     <Button
-                        x:Name="btnMinimieren" 
+                        x:Name="btnMinimize" 
                         Command="{Binding MinimizeCommand}"
                         Height="20" Width="20" Background="Gray"
                         Content="🗕" FontWeight="Bold"
@@ -37,7 +37,7 @@
                     </Button>
 
                     <Button 
-                        x:Name="btnMaximieren"
+                        x:Name="btnMaximize"
                         Command="{Binding MaximizeCommand}"
                         Height="20" Width="20" Background="Gray"
                         Content="□" FontWeight="ExtraBold"
@@ -46,7 +46,7 @@
                     </Button>
 
                     <Button
-                        x:Name="btnSchließen" 
+                        x:Name="btnCloseWindow" 
                         Command="{Binding CloseWindowCommand}"
                         Height="20" Width="20" Background="Gray"
                         Content="X" FontWeight="Bold"
@@ -66,7 +66,7 @@
                     VerticalContentAlignment="Center" FontSize="40" FontWeight="DemiBold">
                 </Label>
             </Grid>
-
+            
             <Grid Margin="50,175,50,50" Grid.ColumnSpan="2">
 
                 <Grid.ColumnDefinitions>
@@ -75,8 +75,7 @@
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-
-                <Grid.RowDefinitions>
+            <Grid.RowDefinitions>
                     <RowDefinition/>
                     <RowDefinition/>
                     <RowDefinition/>
@@ -187,8 +186,7 @@
                 <Button x:Name="btnPoint"
                     Grid.Row="4" Grid.Column="1"
                     Style="{StaticResource CalculatorButtons}"
-                    Content="."
-                    Command="{Binding SwitchViewCommand}" CommandParameter=".">
+                    Content=".">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Click">
                             <i:InvokeCommandAction Command="{Binding AddCharactersCommand}" CommandParameter="."/>
