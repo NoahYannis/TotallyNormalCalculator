@@ -84,6 +84,9 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
         }
 
         private int switchViewCounter;
+        private string firstPart;
+        private string secondPart;
+
 
 
         public CalculatorViewModel()
@@ -126,6 +129,16 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
             {
                 string charTest = AddCharactersCommand.ParameterValue.ToString();
                 bool IsValidInput = charTest.All(x => char.IsDigit(x) || '-' == x || '√' == x);
+
+                if (CalculatorText == "Invalid operation")
+                {
+                    FirstNumber = 0;
+                    SecondNumber = 0;
+                    Operation = null;
+                    Result = 0;
+                    CalculatorText = "";
+                    switchViewCounter = 0;
+                }
 
                 if (CalculatorText.Length == 0)
                 {
@@ -209,7 +222,18 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
                     {
                         try
                         {
-                            FirstNumber = (FirstNumber * 10) + Convert.ToInt64(AddCharactersCommand.ParameterValue);
+                            if (AddCharactersCommand.ParameterValue.ToString() != "." && CalculatorText.Contains(".") == false)
+                            {
+                                FirstNumber = (FirstNumber * 10) + Convert.ToInt64(AddCharactersCommand.ParameterValue);
+                            }
+                            else
+                            {
+                                firstPart = CalculatorText.Substring(0, CalculatorText.IndexOf("."));
+                                secondPart = CalculatorText.Substring(CalculatorText.IndexOf("."), CalculatorText.Length - CalculatorText.IndexOf("."));
+                                secondPart = secondPart.Replace(".", ",");
+
+                                FirstNumber = Convert.ToDouble(firstPart) + Convert.ToDouble(secondPart);
+                            }
                         }
                         catch (Exception)
                         {
@@ -234,7 +258,18 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
                     {
                         try
                         {
-                            SecondNumber = (SecondNumber * 10) + Convert.ToInt64(AddCharactersCommand.ParameterValue);
+                            if (AddCharactersCommand.ParameterValue.ToString() != "." && CalculatorText.Contains(".") == false)
+                            {
+                                SecondNumber = (SecondNumber * 10) + Convert.ToInt64(AddCharactersCommand.ParameterValue);
+                            }
+                            else
+                            {
+                                firstPart = CalculatorText.Substring(0, CalculatorText.IndexOf("."));
+                                secondPart = CalculatorText.Substring(CalculatorText.IndexOf("."), CalculatorText.Length - CalculatorText.IndexOf("."));
+                                secondPart = secondPart.Replace(".", ",");
+
+                                SecondNumber = Convert.ToDouble(firstPart) + Convert.ToDouble(secondPart);
+                            }
                         }
                         catch (Exception)
                         {
@@ -290,12 +325,12 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
                 if (Operation == "√")
                 {
                     FirstNumber = 0;
-                    CalculatorText = "";
                 }
 
                 SecondNumber = 0;
                 Operation = null;
                 switchViewCounter = 0;
+
             });
 
             RemoveCharactersCommand = new RelayCommand(o =>
