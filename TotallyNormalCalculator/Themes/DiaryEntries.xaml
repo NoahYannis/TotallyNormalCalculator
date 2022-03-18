@@ -1,7 +1,5 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:viewmodels="clr-namespace:TotallyNormalCalculator.MVVM.ViewModels"
-                    xmlns:local="clr-namespace:TotallyNormalCalculator.MVVM.Views">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <Style TargetType="ListViewItem" x:Key="DiaryEntries">
         

@@ -19,8 +19,7 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
 
         private DiaryEntryModel _selectedEntry;
         public DiaryEntryModel SelectedEntry
-        {
-            
+        {         
             get { return _selectedEntry; }
             set 
             {
@@ -32,12 +31,11 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
         private string _message;
         public string Message
         {
-            
             get { return _message; }
             set
             {
                 _message = value;
-                OnPropertyChanged(_message);
+                OnPropertyChanged(nameof(Message));
             }
         }
 
@@ -48,7 +46,7 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
             set
             {
                 _title = value;
-                OnPropertyChanged(_title);
+                OnPropertyChanged(nameof(Title));
             }
         }
 
@@ -59,7 +57,7 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
             set 
             {
                 _date = value;
-                OnPropertyChanged(_date);
+                OnPropertyChanged(nameof(Date));
             }
         }
 
@@ -115,10 +113,10 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
            });
 
            ReadEntryCommand = new RelayCommand(o =>
-            {
+           {
                 if (Entries.Count > 0)
                 {
-                    if (SelectedEntry != null)
+                    if (SelectedEntry != null)  // user has selected an entry
                     {
                         Title = SelectedEntry.Title;
                         Message = SelectedEntry.Message;
@@ -138,18 +136,17 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
                         MessageBox.Show(":(");
                     }
                 }
-
             });
 
            DeleteEntryCommand = new RelayCommand(o =>
-            {
-                if (Entries.Count > 0)
+           {
+                if (Entries.Count > 0) // if there is an entry to delete
                 {
                     var wantsToDeleteEntry = MessageBox.Show("Do you want to permanently delete this entry?", "TotallyNormalCalculator", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
                     if (wantsToDeleteEntry == MessageBoxResult.Yes)
                     {
-                        if (SelectedEntry != null)
+                        if (SelectedEntry != null) // user has selected an entry to delete
                         {
                             Entries.Remove(SelectedEntry);
 

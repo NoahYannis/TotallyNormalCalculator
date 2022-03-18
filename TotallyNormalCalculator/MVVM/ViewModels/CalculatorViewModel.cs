@@ -87,8 +87,6 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
         private string firstPart;
         private string secondPart;
 
-
-
         public CalculatorViewModel()
         {
 
@@ -96,7 +94,7 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
             {
                 switchViewCounter++;
 
-                if (switchViewCounter == 6)
+                if (switchViewCounter == 4)
                 {
                     SelectedViewModel = new DiaryViewModel();
                     switchViewCounter = 0;
@@ -222,11 +220,24 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
                     {
                         try
                         {
-                            if (AddCharactersCommand.ParameterValue.ToString() != "." && CalculatorText.Contains(".") == false)
+                            if (AddCharactersCommand.ParameterValue.ToString() != "." && CalculatorText.Contains(".") == false && CalculatorText.StartsWith("-") == false)  // whole, not negative number
                             {
                                 FirstNumber = (FirstNumber * 10) + Convert.ToInt64(AddCharactersCommand.ParameterValue);
                             }
-                            else
+                            else if (CalculatorText.StartsWith("-"))
+                            {
+                                FirstNumber = Convert.ToDouble(CalculatorText.Substring(0, CalculatorText.Length));
+
+                                if (CalculatorText.Contains("."))
+                                {
+                                    firstPart = CalculatorText.Substring(0, CalculatorText.IndexOf("."));
+                                    secondPart = CalculatorText.Substring(CalculatorText.IndexOf("."), CalculatorText.Length - CalculatorText.IndexOf("."));
+                                    secondPart = secondPart.Replace(".", ",");
+
+                                    FirstNumber = Convert.ToDouble(firstPart + secondPart);
+                                }
+                            }
+                            else // number is a decimal and is not negative
                             {
                                 firstPart = CalculatorText.Substring(0, CalculatorText.IndexOf("."));
                                 secondPart = CalculatorText.Substring(CalculatorText.IndexOf("."), CalculatorText.Length - CalculatorText.IndexOf("."));
@@ -258,9 +269,13 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
                     {
                         try
                         {
-                            if (AddCharactersCommand.ParameterValue.ToString() != "." && CalculatorText.Contains(".") == false)
+                            if (AddCharactersCommand.ParameterValue.ToString() != "." && CalculatorText.Contains(".") == false && CalculatorText.StartsWith("-") == false)
                             {
                                 SecondNumber = (SecondNumber * 10) + Convert.ToInt64(AddCharactersCommand.ParameterValue);
+                            }
+                            else if (CalculatorText.StartsWith("-"))
+                            {
+                                SecondNumber = Convert.ToDouble(CalculatorText.Substring(0, CalculatorText.Length));
                             }
                             else
                             {
@@ -322,39 +337,10 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
                     Result = 0;
                 }
 
-                if (Operation == "√")
-                {
-                    FirstNumber = 0;
-                }
-
                 SecondNumber = 0;
                 Operation = null;
                 switchViewCounter = 0;
 
-            });
-
-            RemoveCharactersCommand = new RelayCommand(o =>
-            {
-                try
-                {
-                    if (Operation == null)
-                    {
-                        CalculatorText = CalculatorText.Remove(CalculatorText.Length - 1, 1);
-                        FirstNumber = Convert.ToInt64(CalculatorText);
-                    }
-                    else
-                    {
-                        if (AddCharactersCommand.ParameterValue.ToString() != Operation)
-                        {
-                            CalculatorText = CalculatorText.Remove(CalculatorText.Length - 1, 1);
-                            SecondNumber = (SecondNumber / 10) - ((long)0.1 * SecondNumber);
-                        }
-                    }
-                }
-                catch (Exception)
-                {
-                    CalculatorText = "";
-                }
             });
 
             AllClearCommand = new RelayCommand(o =>
