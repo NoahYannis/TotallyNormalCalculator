@@ -6,7 +6,7 @@ Once unlocked, you can add new entries, read, modify, and delete them as you lik
 
 To be added soon:
 
-- application logo  
+- application logo ✓
 - making the diary draggable ✓
 - styling text boxes ✓
 - diary entries get saved
