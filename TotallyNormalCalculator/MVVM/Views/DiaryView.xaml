@@ -81,6 +81,7 @@
                 <TextBox 
                     x:Name="txtTitle" Height="30" 
                     MinHeight="30" VerticalAlignment="Bottom"
+                    VerticalContentAlignment="Center"
                     core:CornerRadiusSetter.CornerRadius="5"
                     Text="{Binding Path=Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                     FontSize="15" Margin="10,0,170,10" Grid.ColumnSpan="2">
@@ -111,7 +112,8 @@
                      VerticalContentAlignment="Center"
                      HorizontalAlignment="Right" VerticalAlignment="Bottom"
                      core:CornerRadiusSetter.CornerRadius="5"
-                     Text="{Binding Date, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="15" Margin="0,0,10,10" Grid.Column="1"/>
+                     Text="{Binding Date, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                     FontSize="15" Margin="0,0,10,10" Grid.Column="1"/>
 
                 <TextBlock IsHitTestVisible="False"
                        Text="Date"
@@ -134,10 +136,11 @@
                 </TextBlock>
             </Grid>
 
-            <TextBox x:Name="txtMessage" 
-                     core:CornerRadiusSetter.CornerRadius="5" 
-                     AcceptsReturn="True" AcceptsTab="True"
-                     Text="{Binding Message, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="15" Margin="5,0,20,0" Grid.Row="1" Grid.Column="1"/>
+            <TextBox x:Name="txtMessage"
+                     core:CornerRadiusSetter.CornerRadius="5"
+                     AcceptsReturn="True" AcceptsTab="True" 
+                     Text="{Binding Message, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="15"
+                     Margin="5,0,25,0" Grid.Row="1" Grid.Column="1"/>
 
             <TextBlock IsHitTestVisible="False"
                        Text="Message"

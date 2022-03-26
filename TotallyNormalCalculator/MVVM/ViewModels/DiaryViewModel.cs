@@ -75,12 +75,12 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
         public DiaryViewModel()
         {
            MinimizeCommand = new RelayCommand(o =>
-            {
+           {
                 Application.Current.MainWindow.WindowState = WindowState.Minimized;
-            });
+           });
 
            MaximizeCommand = new RelayCommand(o =>
-            {
+           {
                 if (Application.Current.MainWindow.WindowState != WindowState.Maximized)
                 {
                     Application.Current.MainWindow.WindowState = WindowState.Maximized;
@@ -89,12 +89,12 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
                 {
                     Application.Current.MainWindow.WindowState = WindowState.Normal;
                 }
-            });
+           });
 
            CloseWindowCommand = new RelayCommand(o =>
-            {
+           {
                 Application.Current.Shutdown();
-            });
+           });
 
            Entries = new ObservableCollection<DiaryEntryModel>();
 
@@ -116,7 +116,7 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
            {
                 if (Entries.Count > 0)
                 {
-                    if (SelectedEntry != null)  // user has selected an entry
+                    if (SelectedEntry is not null)  // user has selected an entry
                     {
                         Title = SelectedEntry.Title;
                         Message = SelectedEntry.Message;
@@ -146,7 +146,7 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
 
                     if (wantsToDeleteEntry == MessageBoxResult.Yes)
                     {
-                        if (SelectedEntry != null) // user has selected an entry to delete
+                        if (SelectedEntry is not null) // user has selected an entry to delete
                         {
                             Entries.Remove(SelectedEntry);
 

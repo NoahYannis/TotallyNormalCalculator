@@ -128,7 +128,7 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
                 string charTest = AddCharactersCommand.ParameterValue.ToString();
                 bool IsValidInput = charTest.All(x => char.IsDigit(x) || '-' == x || '√' == x);
 
-                if (CalculatorText == "Invalid operation")
+                if (CalculatorText is "Invalid operation")
                 {
                     FirstNumber = 0;
                     SecondNumber = 0;
@@ -138,14 +138,14 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
                     switchViewCounter = 0;
                 }
 
-                if (CalculatorText.Length == 0)
+                if (CalculatorText.Length is 0)
                 {
                     if (IsValidInput)
                     {
                         CalculatorText = AddCharactersCommand.ParameterValue.ToString();
                     }           
                 }
-                else if (AddCharactersCommand.ParameterValue.ToString() == ".")
+                else if (AddCharactersCommand.ParameterValue.ToString() is ".")
                 {
                     if (!CalculatorText.Contains("."))
                     {
@@ -154,7 +154,7 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
                 }
                 else
                 {
-                    if (AddCharactersCommand.ParameterValue.ToString() != "√")
+                    if (AddCharactersCommand.ParameterValue.ToString() is not "√")
                     {
                         CalculatorText += AddCharactersCommand.ParameterValue.ToString();
                     }
@@ -203,7 +203,7 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
                     Operation = "√";
                 }
 
-                if (Operation == null)
+                if (Operation is null)
                 {
                     if (CalculatorText.Length == 0)
                     {
@@ -220,7 +220,7 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
                     {
                         try
                         {
-                            if (AddCharactersCommand.ParameterValue.ToString() != "." && CalculatorText.Contains(".") == false && CalculatorText.StartsWith("-") == false)  // whole, not negative number
+                            if (AddCharactersCommand.ParameterValue.ToString() is not "." && CalculatorText.Contains(".") == false && CalculatorText.StartsWith("-") == false)  // whole, not negative number
                             {
                                 FirstNumber = (FirstNumber * 10) + Convert.ToInt64(AddCharactersCommand.ParameterValue);
                             }
@@ -232,7 +232,6 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
                                 {
                                     firstPart = CalculatorText.Substring(0, CalculatorText.IndexOf("."));
                                     secondPart = CalculatorText.Substring(CalculatorText.IndexOf("."), CalculatorText.Length - CalculatorText.IndexOf("."));
-                                    secondPart = secondPart.Replace(".", ",");
 
                                     FirstNumber = Convert.ToDouble(firstPart + secondPart);
                                 }
@@ -241,9 +240,8 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
                             {
                                 firstPart = CalculatorText.Substring(0, CalculatorText.IndexOf("."));
                                 secondPart = CalculatorText.Substring(CalculatorText.IndexOf("."), CalculatorText.Length - CalculatorText.IndexOf("."));
-                                secondPart = secondPart.Replace(".", ",");
 
-                                FirstNumber = Convert.ToDouble(firstPart) + Convert.ToDouble(secondPart);
+                                FirstNumber = Convert.ToDouble(firstPart + secondPart);
                             }
                         }
                         catch (Exception)
@@ -269,21 +267,28 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
                     {
                         try
                         {
-                            if (AddCharactersCommand.ParameterValue.ToString() != "." && CalculatorText.Contains(".") == false && CalculatorText.StartsWith("-") == false)
+                            if (AddCharactersCommand.ParameterValue.ToString() is not "." && CalculatorText.Contains(".") == false && CalculatorText.StartsWith("-") == false)
                             {
                                 SecondNumber = (SecondNumber * 10) + Convert.ToInt64(AddCharactersCommand.ParameterValue);
                             }
                             else if (CalculatorText.StartsWith("-"))
                             {
                                 SecondNumber = Convert.ToDouble(CalculatorText.Substring(0, CalculatorText.Length));
+
+                                if (CalculatorText.Contains("."))
+                                {
+                                    firstPart = CalculatorText.Substring(0, CalculatorText.IndexOf("."));
+                                    secondPart = CalculatorText.Substring(CalculatorText.IndexOf("."), CalculatorText.Length - CalculatorText.IndexOf("."));
+
+                                    SecondNumber = Convert.ToDouble(firstPart + secondPart);
+                                }
                             }
                             else
                             {
                                 firstPart = CalculatorText.Substring(0, CalculatorText.IndexOf("."));
                                 secondPart = CalculatorText.Substring(CalculatorText.IndexOf("."), CalculatorText.Length - CalculatorText.IndexOf("."));
-                                secondPart = secondPart.Replace(".", ",");
 
-                                SecondNumber = Convert.ToDouble(firstPart) + Convert.ToDouble(secondPart);
+                                SecondNumber = Convert.ToDouble(firstPart + secondPart);
                             }
                         }
                         catch (Exception)
