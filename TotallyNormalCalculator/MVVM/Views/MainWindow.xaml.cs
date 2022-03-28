@@ -1,4 +1,6 @@
 ﻿using System.Windows;
+using TotallyNormalCalculator.Core;
+using static TotallyNormalCalculator.Core.DbClass;
 
 namespace TotallyNormalCalculator.Views
 {
@@ -7,6 +9,9 @@ namespace TotallyNormalCalculator.Views
         public MainWindow()
         {
             InitializeComponent();
+                
+            DbClass.OpenConnection();
+            DbClass.CloseConnection();
         }
     }
 }

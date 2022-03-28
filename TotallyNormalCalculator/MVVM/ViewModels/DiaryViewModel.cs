@@ -1,5 +1,9 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Data;
+using System.Linq;
 using System.Windows;
+using Dapper;
 using TotallyNormalCalculator.Core;
 using TotallyNormalCalculator.MVVM.Model;
 
@@ -19,9 +23,9 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
 
         private DiaryEntryModel _selectedEntry;
         public DiaryEntryModel SelectedEntry
-        {         
+        {
             get { return _selectedEntry; }
-            set 
+            set
             {
                 _selectedEntry = value;
                 OnPropertyChanged(nameof(SelectedEntry));
@@ -54,7 +58,7 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
         public string Date
         {
             get { return _date; }
-            set 
+            set
             {
                 _date = value;
                 OnPropertyChanged(nameof(Date));
@@ -74,13 +78,13 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
 
         public DiaryViewModel()
         {
-           MinimizeCommand = new RelayCommand(o =>
-           {
+            MinimizeCommand = new RelayCommand(o =>
+            {
                 Application.Current.MainWindow.WindowState = WindowState.Minimized;
-           });
+            });
 
-           MaximizeCommand = new RelayCommand(o =>
-           {
+            MaximizeCommand = new RelayCommand(o =>
+            {
                 if (Application.Current.MainWindow.WindowState != WindowState.Maximized)
                 {
                     Application.Current.MainWindow.WindowState = WindowState.Maximized;
@@ -89,38 +93,43 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
                 {
                     Application.Current.MainWindow.WindowState = WindowState.Normal;
                 }
-           });
+            });
 
-           CloseWindowCommand = new RelayCommand(o =>
-           {
+            CloseWindowCommand = new RelayCommand(o =>
+            {
                 Application.Current.Shutdown();
-           });
+            });
 
-           Entries = new ObservableCollection<DiaryEntryModel>();
+            Entries = new ObservableCollection<DiaryEntryModel>();
 
-           AddEntryCommand = new RelayCommand(o =>
-           {
-                Entries.Add(new DiaryEntryModel 
-                {
-                    Title = Title,
-                    Message = Message,
-                    Date = Date
-                });
+            AddEntryCommand = new RelayCommand(o =>
+            {
+                DataAccess db = new();
+
+                //Entries.Add(new DiaryEntryModel
+                //{
+                //    Title = Title,
+                //    Message = Message,
+                //    Date = Date
+                //});
+
+                GetAllEntries(Title, Message, Date);
+                //InsertDiaryEntry(Title, Message, Date);
 
                 Title = "";
                 Message = "";
                 Date = "";
-           });
+            });
 
-           ReadEntryCommand = new RelayCommand(o =>
-           {
+            ReadEntryCommand = new RelayCommand(o =>
+            {
                 if (Entries.Count > 0)
                 {
                     if (SelectedEntry is not null)  // user has selected an entry
                     {
                         Title = SelectedEntry.Title;
                         Message = SelectedEntry.Message;
-                        Date = SelectedEntry.Date; 
+                        Date = SelectedEntry.Date;
                     }
                     else
                     {
@@ -138,8 +147,8 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
                 }
             });
 
-           DeleteEntryCommand = new RelayCommand(o =>
-           {
+            DeleteEntryCommand = new RelayCommand(o =>
+            {
                 if (Entries.Count > 0) // if there is an entry to delete
                 {
                     var wantsToDeleteEntry = MessageBox.Show("Do you want to permanently delete this entry?", "TotallyNormalCalculator", MessageBoxButton.YesNo, MessageBoxImage.Question);
@@ -167,10 +176,34 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
 
             });
 
-           SwitchViewCommand = new RelayCommand(o =>
-           {
-               SelectedViewModel = new CalculatorViewModel();
-           });
+            SwitchViewCommand = new RelayCommand(o =>
+            {
+                SelectedViewModel = new CalculatorViewModel();
+            });
         }
-    }
+
+        public void GetAllEntries(string title, string message, string date)
+        {
+            using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(Helper.CnnVal("DiaryEntryDB")))
+            {
+                var output = connection.Query<DiaryEntryModel>("dbo.spGetAllEntries @Title, @Message, @Date", new { Title = title, Message = message, Date = date }).ToList();
+
+                foreach (var item in output)
+                {
+                    //DiaryEntryModel diaryEntryModel = new DiaryEntryModel { Title = title, Message = message, Date = date };
+                    Entries.Add(item);
+                }
+            }
+        }
+
+        public void InsertDiaryEntry(string title, string message, string date)
+        {
+            using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(Helper.CnnVal("DiaryEntryDB")))
+            {
+                Entries.Add(new DiaryEntryModel { Title = title, Message = message, Date = date });
+                connection.Execute("dbo.spInsertDiaryEntry @Title, @Message, @Date", Entries);
+            }
+        }
+    } 
+
 }

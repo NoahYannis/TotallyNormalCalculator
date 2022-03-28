@@ -6,8 +6,7 @@
         Height="600" Width="600" MinHeight="600" MinWidth="650"
         Background="#36393F" AllowsTransparency ="False"
         ResizeMode="CanResizeWithGrip"
-        WindowStyle="None"
-        >
+        WindowStyle="None">
 
     <Window.Resources>
         <DataTemplate x:Key="Diary" DataType="{x:Type viewmodels:DiaryViewModel}">
@@ -17,7 +16,6 @@
             <views:CalculatorView DataContext="{x:Type viewmodels:CalculatorViewModel}"/>
         </DataTemplate>
     </Window.Resources>
-
 
     <Window.DataContext>
         <viewmodels:MainViewModel/>

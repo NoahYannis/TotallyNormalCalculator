@@ -1,5 +1,4 @@
-﻿using TotallyNormalCalculator.Core;
-using TotallyNormalCalculator.MVVM.ViewModels;
+﻿using TotallyNormalCalculator.MVVM.ViewModels;
 
 namespace TotallyNormalCalculator.MVVM.Model
 {
