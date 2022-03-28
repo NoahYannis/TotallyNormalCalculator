@@ -9,6 +9,6 @@ To be added soon:
 - application logo ✓
 - making the diary draggable ✓
 - styling text boxes ✓
-- diary entries get saved
+- diary entries get saved (SQL implementation)
 - layout improvements ✓
 - unit tests
