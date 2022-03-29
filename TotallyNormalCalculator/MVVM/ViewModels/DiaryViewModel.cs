@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Linq;
@@ -12,7 +12,17 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
 {
     public class DiaryViewModel : BaseViewModel
     {
-        public ObservableCollection<DiaryEntryModel> Entries { get; set; }
+        private ObservableCollection<DiaryEntryModel> _entries;
+        public ObservableCollection<DiaryEntryModel> Entries
+        {
+            get { return _entries; }
+            set 
+            {
+                _entries = value;
+                OnPropertyChanged(nameof(Entries));
+            }
+        }
+
         public RelayCommand MinimizeCommand { get; set; }
         public RelayCommand MaximizeCommand { get; set; }
         public RelayCommand CloseWindowCommand { get; set; }
@@ -32,6 +42,7 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
             }
         }
 
+    
         private string _message;
         public string Message
         {
@@ -78,6 +89,8 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
 
         public DiaryViewModel()
         {
+            GetAllEntries(Title, Message, Date);
+
             MinimizeCommand = new RelayCommand(o =>
             {
                 Application.Current.MainWindow.WindowState = WindowState.Minimized;
@@ -100,25 +113,14 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
                 Application.Current.Shutdown();
             });
 
-            Entries = new ObservableCollection<DiaryEntryModel>();
-
             AddEntryCommand = new RelayCommand(o =>
             {
-                DataAccess db = new();
-
-                //Entries.Add(new DiaryEntryModel
-                //{
-                //    Title = Title,
-                //    Message = Message,
-                //    Date = Date
-                //});
-
-                GetAllEntries(Title, Message, Date);
-                //InsertDiaryEntry(Title, Message, Date);
+                InsertDiaryEntry(Title, Message, Date);
 
                 Title = "";
                 Message = "";
                 Date = "";
+
             });
 
             ReadEntryCommand = new RelayCommand(o =>
@@ -184,24 +186,40 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
 
         public void GetAllEntries(string title, string message, string date)
         {
+            Entries = new ObservableCollection<DiaryEntryModel>();
+
             using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(Helper.CnnVal("DiaryEntryDB")))
             {
                 var output = connection.Query<DiaryEntryModel>("dbo.spGetAllEntries @Title, @Message, @Date", new { Title = title, Message = message, Date = date }).ToList();
 
                 foreach (var item in output)
                 {
-                    //DiaryEntryModel diaryEntryModel = new DiaryEntryModel { Title = title, Message = message, Date = date };
                     Entries.Add(item);
                 }
             }
+
+            Title = "";
+            Message = "";
+            Date = "";
         }
 
         public void InsertDiaryEntry(string title, string message, string date)
         {
+            Entries = new ObservableCollection<DiaryEntryModel>();
+
             using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(Helper.CnnVal("DiaryEntryDB")))
             {
-                Entries.Add(new DiaryEntryModel { Title = title, Message = message, Date = date });
-                connection.Execute("dbo.spInsertDiaryEntry @Title, @Message, @Date", Entries);
+                try
+                {   
+                    Entries.Add(new DiaryEntryModel { Title = title, Message = message, Date = date });
+                    connection.Execute("dbo.spInsertDiaryEntry @Title, @Message, @Date", Entries);
+                }
+                catch (Exception exc)
+                {
+                    MessageBox.Show($"There was an error: {exc.Message}");
+                }
+
+                GetAllEntries(Title, Message, Date);
             }
         }
     } 
