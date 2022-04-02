@@ -16,6 +16,7 @@ namespace TotallyNormalCalculator
               typeof(FrameworkElement),
               new FrameworkPropertyMetadata(
                     XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.IetfLanguageTag)));
+
             base.OnStartup(e);
         }
     }

@@ -12,17 +12,6 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
 {
     public class DiaryViewModel : BaseViewModel
     {
-        private ObservableCollection<DiaryEntryModel> _entries;
-        public ObservableCollection<DiaryEntryModel> Entries
-        {
-            get { return _entries; }
-            set 
-            {
-                _entries = value;
-                OnPropertyChanged(nameof(Entries));
-            }
-        }
-
         public RelayCommand MinimizeCommand { get; set; }
         public RelayCommand MaximizeCommand { get; set; }
         public RelayCommand CloseWindowCommand { get; set; }
@@ -30,6 +19,17 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
         public RelayCommand ReadEntryCommand { get; set; }
         public RelayCommand DeleteEntryCommand { get; set; }
         public RelayCommand SwitchViewCommand { get; set; }
+
+        private ObservableCollection<DiaryEntryModel> _entries;
+        public ObservableCollection<DiaryEntryModel> Entries
+        {
+            get { return _entries; }
+            set
+            {
+                _entries = value;
+                OnPropertyChanged(nameof(Entries));
+            }
+        }
 
         private DiaryEntryModel _selectedEntry;
         public DiaryEntryModel SelectedEntry
@@ -42,7 +42,6 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
             }
         }
 
-    
         private string _message;
         public string Message
         {
@@ -89,6 +88,8 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
 
         public DiaryViewModel()
         {
+            Entries = new ObservableCollection<DiaryEntryModel>();
+
             GetAllEntries(Title, Message, Date);
 
             MinimizeCommand = new RelayCommand(o =>
@@ -116,11 +117,6 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
             AddEntryCommand = new RelayCommand(o =>
             {
                 InsertDiaryEntry(Title, Message, Date);
-
-                Title = "";
-                Message = "";
-                Date = "";
-
             });
 
             ReadEntryCommand = new RelayCommand(o =>
@@ -142,7 +138,7 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
                 {
                     var result = MessageBox.Show("There is no entry to read. You should create one!", "TotallyNormalCalculator", MessageBoxButton.YesNo, MessageBoxImage.Information);
 
-                    if (result == MessageBoxResult.No)
+                    if (result is MessageBoxResult.No)
                     {
                         MessageBox.Show(":(");
                     }
@@ -155,15 +151,11 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
                 {
                     var wantsToDeleteEntry = MessageBox.Show("Do you want to permanently delete this entry?", "TotallyNormalCalculator", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
-                    if (wantsToDeleteEntry == MessageBoxResult.Yes)
+                    if (wantsToDeleteEntry is MessageBoxResult.Yes)
                     {
                         if (SelectedEntry is not null) // user has selected an entry to delete
                         {
-                            Entries.Remove(SelectedEntry);
-
-                            Title = "";
-                            Message = "";
-                            Date = "";
+                            DeleteDiaryEntry(SelectedEntry.Title, SelectedEntry.Message, SelectedEntry.Date);
                         }
                         else
                         {
@@ -186,41 +178,49 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
 
         public void GetAllEntries(string title, string message, string date)
         {
-            Entries = new ObservableCollection<DiaryEntryModel>();
-
             using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(Helper.CnnVal("DiaryEntryDB")))
             {
-                var output = connection.Query<DiaryEntryModel>("dbo.spGetAllEntries @Title, @Message, @Date", new { Title = title, Message = message, Date = date }).ToList();
+                var output = connection.Query<DiaryEntryModel>("dbo.spGetAllEntries @Title, @Message, @Date", new { Title = title, Message = message, Date = date });
 
                 foreach (var item in output)
                 {
                     Entries.Add(item);
                 }
             }
-
-            Title = "";
-            Message = "";
-            Date = "";
         }
 
         public void InsertDiaryEntry(string title, string message, string date)
         {
-            Entries = new ObservableCollection<DiaryEntryModel>();
-
             using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(Helper.CnnVal("DiaryEntryDB")))
             {
                 try
                 {   
                     Entries.Add(new DiaryEntryModel { Title = title, Message = message, Date = date });
-                    connection.Execute("dbo.spInsertDiaryEntry @Title, @Message, @Date", Entries);
+                    connection.Execute("dbo.spInsertDiaryEntry @Title, @Message, @Date", new { Title = title, Message = message, Date = date });
                 }
                 catch (Exception exc)
                 {
                     MessageBox.Show($"There was an error: {exc.Message}");
+                    Entries.Remove(SelectedEntry);
                 }
 
-                GetAllEntries(Title, Message, Date);
+                Title = "";
+                Message = "";
+                Date = "";
             }
+        }
+
+        public void DeleteDiaryEntry(string title, string message, string date)
+        {
+            using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(Helper.CnnVal("DiaryEntryDB")))
+            {
+                connection.Execute("dbo.spDeleteEntry @Title, @Message, @Date", new { Title = title, Message = message, Date = date });
+                Entries.Remove(SelectedEntry);
+            }
+
+            Title = "";
+            Message = "";
+            Date = "";
         }
     } 
 
