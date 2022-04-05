@@ -3,12 +3,12 @@
 namespace TotallyNormalCalculator
 {
     public class CalculatorModel
-    { 
+    {
         public static double Add(double x, double y)
-        {       
-            return x + y;   
+        {
+            return x + y;
         }
-        
+
         public static double Subtract(double x, double y)
         {
             return x - y;
@@ -21,13 +21,13 @@ namespace TotallyNormalCalculator
 
         public static double Divide(double x, double y)
         {
-            try
-            {            
-                return x / y;
-            }
-            catch (DivideByZeroException)
+            if (y is 0)
             {
                 return 0;
+            }
+            else
+            {
+                return x / y;
             }
         }
     }

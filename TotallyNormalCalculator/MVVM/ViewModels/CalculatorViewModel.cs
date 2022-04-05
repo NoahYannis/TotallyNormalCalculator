@@ -147,7 +147,7 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
                 }
                 else if (AddCharactersCommand.ParameterValue.ToString() is ".")
                 {
-                    if (!CalculatorText.Contains("."))
+                    if (CalculatorText.Contains(".") is false)
                     {
                         CalculatorText += ".";
                     }
@@ -198,14 +198,14 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
                             break;
                     }         
                 }
-                else if (CalculatorText.Length == 1 && AddCharactersCommand.ParameterValue.ToString() == "√")
+                else if (CalculatorText.Length == 1 && AddCharactersCommand.ParameterValue.ToString() is "√")
                 {
                     Operation = "√";
                 }
 
                 if (Operation is null)
                 {
-                    if (CalculatorText.Length == 0)
+                    if (CalculatorText.Length is 0)
                     {
                         try
                         {
@@ -220,7 +220,7 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
                     {
                         try
                         {
-                            if (AddCharactersCommand.ParameterValue.ToString() is not "." && CalculatorText.Contains(".") == false && CalculatorText.StartsWith("-") == false)  // whole, not negative number
+                            if (AddCharactersCommand.ParameterValue.ToString() is not "." && CalculatorText.Contains(".") is false && CalculatorText.StartsWith("-") is false)  // whole, not negative number
                             {
                                 FirstNumber = (FirstNumber * 10) + Convert.ToInt64(AddCharactersCommand.ParameterValue);
                             }
@@ -250,9 +250,9 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
                         }
                     }
                 }
-                else
+                else // operation not null -> second number
                 {
-                    if (CalculatorText.Length == 0)
+                    if (CalculatorText.Length is 0)
                     {
                         try
                         {
@@ -267,7 +267,7 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
                     {
                         try
                         {
-                            if (AddCharactersCommand.ParameterValue.ToString() is not "." && CalculatorText.Contains(".") == false && CalculatorText.StartsWith("-") == false)
+                            if (AddCharactersCommand.ParameterValue.ToString() is not "." && CalculatorText.Contains(".") is false && CalculatorText.StartsWith("-") is false)
                             {
                                 SecondNumber = (SecondNumber * 10) + Convert.ToInt64(AddCharactersCommand.ParameterValue);
                             }
