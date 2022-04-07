@@ -11,4 +11,4 @@ To be added soon:
 - styling text boxes ✓
 - diary entries can be saved to a local databank (SQL implementation) ✓
 - layout improvements ✓
-- unit tests
+- unit tests ✓
