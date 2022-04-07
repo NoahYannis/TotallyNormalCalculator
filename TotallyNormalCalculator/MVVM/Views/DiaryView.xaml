@@ -81,10 +81,11 @@
                 <TextBox 
                     x:Name="txtTitle" Height="30" 
                     MinHeight="30" VerticalAlignment="Bottom"
+                    HorizontalAlignment="Stretch"
                     VerticalContentAlignment="Center"
                     core:CornerRadiusSetter.CornerRadius="5"
                     Text="{Binding Path=Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                    FontSize="15" Margin="10,0,170,10" Grid.ColumnSpan="2">
+                    FontSize="15" Margin="10,0,180,10" Grid.ColumnSpan="2">
                 </TextBox>
 
                 <TextBlock IsHitTestVisible="False"
@@ -108,7 +109,7 @@
                 </TextBlock>
 
                 <TextBox x:Name="txtDate" 
-                     MinHeight="30" MinWidth="140" 
+                     MinHeight="30" Width="150" 
                      VerticalContentAlignment="Center"
                      HorizontalAlignment="Right" VerticalAlignment="Bottom"
                      core:CornerRadiusSetter.CornerRadius="5"
@@ -121,7 +122,7 @@
                        HorizontalAlignment="Right"
                        FontSize="15"
                        Foreground="DarkGray"
-                       Margin="0,0,113,16" Grid.Column="1">
+                       Margin="0,0,123,16" Grid.Column="1">
 
                     <TextBlock.Style>
                         <Style TargetType="TextBlock">

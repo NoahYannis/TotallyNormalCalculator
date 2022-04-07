@@ -137,11 +137,6 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
                 else
                 {
                     var result = MessageBox.Show("There is no entry to read. You should create one!", "TotallyNormalCalculator", MessageBoxButton.YesNo, MessageBoxImage.Information);
-
-                    if (result is MessageBoxResult.No)
-                    {
-                        MessageBox.Show(":(");
-                    }
                 }
             });
 
