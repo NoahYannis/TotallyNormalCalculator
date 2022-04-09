@@ -299,6 +299,27 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
                 }
             });
 
+            RemoveCharactersCommand = new RelayCommand(o =>
+            {
+                try
+                {
+                    CalculatorText = CalculatorText.Remove(CalculatorText.Length - 1, 1);
+
+                    if (Operation is null) // It's still the first Number
+                    {
+                        FirstNumber = Convert.ToDouble(CalculatorText);
+                    }
+                    else
+                    {
+                        SecondNumber = Convert.ToDouble(CalculatorText);
+                    }
+                }
+                catch (Exception)
+                {
+
+                }
+            });
+
             CalculateCommand = new RelayCommand(o =>
             {
                 switch (Operation)
