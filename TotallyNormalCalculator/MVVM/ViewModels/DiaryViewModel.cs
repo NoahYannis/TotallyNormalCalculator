@@ -189,7 +189,7 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
             using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(Helper.CnnVal("DiaryEntryDB")))
             {
                 try
-                {   
+                {
                     Entries.Add(new DiaryEntryModel { Title = title, Message = message, Date = date });
                     connection.Execute("dbo.spInsertDiaryEntry @Title, @Message, @Date", new { Title = title, Message = message, Date = date });
                 }
@@ -217,6 +217,6 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
             Message = "";
             Date = "";
         }
-    } 
+    }
 
 }
