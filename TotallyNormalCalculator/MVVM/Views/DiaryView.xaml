@@ -139,7 +139,7 @@
 
             <TextBox x:Name="txtMessage"
                      core:CornerRadiusSetter.CornerRadius="5"
-                     AcceptsReturn="True" AcceptsTab="True" 
+                     AcceptsReturn="True" AcceptsTab="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" 
                      Text="{Binding Message, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="15"
                      Margin="5,0,25,0" Grid.Row="1" Grid.Column="1"/>
 

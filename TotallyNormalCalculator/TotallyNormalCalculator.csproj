@@ -6,6 +6,8 @@
     <UseWPF>true</UseWPF>
     <ApplicationIcon>CalculatorIcon.ico</ApplicationIcon>
     <Win32Resource />
+    <StartupObject></StartupObject>
+    <UserSecretsId>09a0ff11-cf90-4ca7-8fca-f11a6659a644</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -14,11 +16,15 @@
 
   <ItemGroup>
     <None Remove="DiaryEntryDB.mdf" />
+    <None Remove="DiaryEntryDB_log.ldf" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Include="DiaryEntryDB.mdf">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DiaryEntryDB_log.ldf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
 
@@ -29,6 +35,7 @@
   <ItemGroup>
     <PackageReference Include="Dapper" Version="2.0.123" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Abstractions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="5.0.0" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.39" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="6.0.0" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.3" />
@@ -42,5 +49,6 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
   </ItemGroup>
+
 
 </Project>
