@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace TotallyNormalCalculator
+﻿namespace TotallyNormalCalculator
 {
     public class CalculatorModel
     {

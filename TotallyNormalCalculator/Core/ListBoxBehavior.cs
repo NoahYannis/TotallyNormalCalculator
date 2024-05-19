@@ -6,7 +6,8 @@ using System.Windows;
 using System.Windows.Controls;
 
 namespace TotallyNormalCalculator.Core
-{   public class ListBoxBehavior
+{
+    public class ListBoxBehavior
     {
         static readonly Dictionary<ListBox, Capture> Associations =
                new Dictionary<ListBox, Capture>();

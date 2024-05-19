@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Dapper;
+using System;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.IO;
 using System.Windows;
-using Dapper;
 using TotallyNormalCalculator.Core;
 using TotallyNormalCalculator.MVVM.Model;
 
@@ -190,7 +190,7 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
             }
             catch (Exception exc)
             {
-               MessageBox.Show(exc.Message);
+                MessageBox.Show(exc.Message);
             }
         }
 

@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
-using TotallyNormalCalculator.MVVM.Model;
 using TotallyNormalCalculator.MVVM.ViewModels;
 
 
@@ -19,13 +14,13 @@ namespace TotallyNormalCalculator.Core
         public object ParameterValue
         {
             get { return _parameterValue; }
-            set 
+            set
             {
                 _parameterValue = value;
                 OnPropertyChanged(nameof(ParameterValue));
             }
         }
-       
+
 
         public event EventHandler CanExecuteChanged
         {

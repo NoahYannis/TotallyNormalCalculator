@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 
@@ -42,7 +37,7 @@ namespace TotallyNormalCalculator.Core
                 if (mouseEventArgs.LeftButton == MouseButtonState.Pressed)
                 {
                     DependencyObject parent = uiElement;
-                    int avoidInfiniteLoop = 0; 
+                    int avoidInfiniteLoop = 0;
                     // Search up the visual tree to find the first parent window.
                     while ((parent is Window) == false)
                     {

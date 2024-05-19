@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Windows;
 using System.Linq;
+using System.Windows;
 using TotallyNormalCalculator.Core;
 
 namespace TotallyNormalCalculator.MVVM.ViewModels
@@ -15,7 +15,7 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
         public RelayCommand RemoveCharactersCommand { get; set; }
         public RelayCommand CalculateCommand { get; set; }
         public RelayCommand AllClearCommand { get; set; }
-       
+
         private BaseViewModel _selectedViewModel;
         public BaseViewModel SelectedViewModel
         {
@@ -31,7 +31,7 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
         public string CalculatorText
         {
             get { return _calculatorText; }
-            set 
+            set
             {
                 _calculatorText = value;
                 OnPropertyChanged(nameof(CalculatorText));
@@ -42,7 +42,7 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
         public double FirstNumber
         {
             get { return _firstNumber; }
-            set 
+            set
             {
                 _firstNumber = value;
                 OnPropertyChanged(nameof(FirstNumber));
@@ -75,7 +75,7 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
         public double Result
         {
             get { return _result; }
-            set 
+            set
             {
                 _result = value;
                 OnPropertyChanged(nameof(Result));
@@ -143,7 +143,7 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
                     if (IsValidInput)
                     {
                         CalculatorText = AddCharactersCommand.ParameterValue.ToString();
-                    }           
+                    }
                 }
                 else if (AddCharactersCommand.ParameterValue.ToString() is ".")
                 {
@@ -193,10 +193,10 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
                             Operation = "^";
                             CalculatorText = "";
                             break;
-                   
+
                         default:
                             break;
-                    }         
+                    }
                 }
                 else if (CalculatorText.Length == 1 && AddCharactersCommand.ParameterValue.ToString() is "√")
                 {
@@ -261,7 +261,7 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
                         catch (Exception)
                         {
                             SecondNumber = 0;
-                        }         
+                        }
                     }
                     else
                     {
@@ -294,7 +294,7 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
                         catch (Exception)
                         {
                             SecondNumber = 0;
-                        }         
+                        }
                     }
                 }
             });

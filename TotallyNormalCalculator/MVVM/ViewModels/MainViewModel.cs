@@ -9,7 +9,7 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
         {
             get { return _selectedViewModel; }
         }
-        
+
         public MainViewModel()
         {
 
