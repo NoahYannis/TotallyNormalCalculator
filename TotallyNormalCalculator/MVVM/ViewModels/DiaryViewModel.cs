@@ -178,9 +178,9 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
         {
             try
             {
-                using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(@$"Data Source=(localdb)\MSSQLLocalDB;AttachDbFilename={appRoot}\DiaryEntryDB.mdf;Integrated Security=True;ApplicationIntent=ReadWrite"))
+                using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(@$"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=DiaryEntryDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;"))
                 {
-                    var output = connection.Query<DiaryEntryModel>("dbo.spGetAllEntries @Title, @Message, @Date", new { Title = title, Message = message, Date = date });
+                    var output = connection.Query<DiaryEntryModel>("select * from dbo.Entries", new { Title = title, Message = message, Date = date });
 
                     foreach (var item in output)
                     {
@@ -196,12 +196,13 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
 
         public void InsertDiaryEntry(string title, string message, string date)
         {
-            using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(@$"Data Source=(localdb)\MSSQLLocalDB;AttachDbFilename={appRoot}\DiaryEntryDB.mdf;Integrated Security=True;ApplicationIntent=ReadWrite"))
+            using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(@$"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=DiaryEntryDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;"))
             {
                 try
                 {
                     Entries.Add(new DiaryEntryModel { Title = title, Message = message, Date = date });
-                    connection.Execute("dbo.spInsertDiaryEntry @Title, @Message, @Date", new { Title = title, Message = message, Date = date });
+                    string sqlStatement = "INSERT INTO dbo.Entries (Title, Message, Date) VALUES (@Title, @Message, @Date)";
+                    connection.Execute(sqlStatement, new { Title = title, Message = message, Date = date });
                 }
                 catch (Exception exc)
                 {
@@ -217,9 +218,9 @@ namespace TotallyNormalCalculator.MVVM.ViewModels
 
         public void DeleteDiaryEntry(string title, string message, string date)
         {
-            using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(@$"Data Source=(localdb)\MSSQLLocalDB;AttachDbFilename={appRoot}\DiaryEntryDB.mdf;Integrated Security=True;ApplicationIntent=ReadWrite"))
+            using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(@$"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=DiaryEntryDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;"))
             {
-                connection.Execute("dbo.spDeleteEntry @Title, @Message, @Date", new { Title = title, Message = message, Date = date });
+                connection.Execute("DELETE FROM dbo.Entries WHERE Title = @Title AND Message = @Message AND Date = @Date", new { Title = title, Message = message, Date = date });
                 Entries.Remove(SelectedEntry);
             }
 
